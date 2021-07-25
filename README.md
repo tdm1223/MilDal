@@ -2,7 +2,7 @@
 
 ![MilDalLogo](https://user-images.githubusercontent.com/21440957/63706639-e83e5b00-c86a-11e9-8895-19d2b55f0780.png)
 
-- 개발 엔진 : Unreadl Engine4
+- 개발 엔진 : Unreal Engine4
 - 버전 : 4.26
 - 플랫폼 : PC
 
