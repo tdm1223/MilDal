@@ -3,10 +3,12 @@
 
 #include "MilDalGameModeBase.h"
 #include "Kismet/GameplayStatics.h"
+#include "PlayerOne.h"
 
 AMilDalGameModeBase::AMilDalGameModeBase()
 {
     PrimaryActorTick.bCanEverTick = false;
+    DefaultPawnClass = APlayerOne::StaticClass();
 }
 
 void AMilDalGameModeBase::BeginPlay()

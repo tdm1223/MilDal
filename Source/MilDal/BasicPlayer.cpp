@@ -9,6 +9,12 @@ ABasicPlayer::ABasicPlayer()
     // Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
     PrimaryActorTick.bCanEverTick = true;
 
+    static ConstructorHelpers::FObjectFinder<USkeletalMesh> PlayerModel(TEXT("SkeletalMesh'/Game/Character/Monkey_Mesh.Monkey_Mesh'"));
+
+    if (PlayerModel.Succeeded())
+    {
+        GetMesh()->SetSkeletalMesh(PlayerModel.Object);
+    }
 }
 
 // Called when the game starts or when spawned
