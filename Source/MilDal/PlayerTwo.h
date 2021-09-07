@@ -4,13 +4,13 @@
 
 #include "CoreMinimal.h"
 #include "BasicPlayer.h"
-#include "PlayerOne.generated.h"
+#include "PlayerTwo.generated.h"
 
 /**
  *
  */
 UCLASS()
-class MILDAL_API APlayerOne : public ABasicPlayer
+class MILDAL_API APlayerTwo : public ABasicPlayer
 {
     GENERATED_BODY()
 

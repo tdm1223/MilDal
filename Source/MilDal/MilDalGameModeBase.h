@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/GameModeBase.h"
 #include "MainCamera.h"
+#include "GameFramework/PlayerStart.h"
 #include "MilDalGameModeBase.generated.h"
 
 /**
@@ -19,4 +20,10 @@ public:
     AMilDalGameModeBase();
     virtual void BeginPlay();
     virtual void Tick(float DeltaTime);
+
+    void GetPlayerStartPoints();
+
+
+    TArray<AActor*> OutActors;
+
 };
