@@ -20,10 +20,4 @@ public:
     AMilDalGameModeBase();
     virtual void BeginPlay();
     virtual void Tick(float DeltaTime);
-
-    void GetPlayerStartPoints();
-
-
-    TArray<AActor*> OutActors;
-
 };

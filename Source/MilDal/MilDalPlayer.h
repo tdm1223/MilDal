@@ -4,27 +4,26 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
-#include "BasicPlayer.generated.h"
+#include "MilDalPlayer.generated.h"
 
 UCLASS()
-class MILDAL_API ABasicPlayer : public ACharacter
+class MILDAL_API AMilDalPlayer : public ACharacter
 {
     GENERATED_BODY()
 
 public:
-    ABasicPlayer();
+    // Sets default values for this character's properties
+    AMilDalPlayer();
 
 protected:
+    // Called when the game starts or when spawned
     virtual void BeginPlay() override;
 
 public:
+    // Called every frame
     virtual void Tick(float DeltaTime) override;
 
+    // Called to bind functionality to input
     virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
-    void MoveForward(float AxisValue);
-    void MoveRight(float AxisValue);
-
-    void StartJump();
-    void EndJump();
 };
