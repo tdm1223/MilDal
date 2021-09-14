@@ -31,12 +31,19 @@ public:
     void MoveRight(float AxisValue);
     void StartJump();
     void EndJump();
-    void TestFunc();
 
     UFUNCTION()
     void OnOverlapBegin(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 
-    void SetPlayerVisibility(bool isHide);
+    UPROPERTY(EditAnywhere)
+    int Life = 5;
+
+    void SetPlayerHide(bool isHide);
+    void RespawnPlayer();
+
+    UPROPERTY(EditAnywhere)
+    TSubclassOf<class AMainCamera> MainCamera;
+
 private:
     void Drop();
 };

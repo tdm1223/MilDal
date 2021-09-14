@@ -2,7 +2,9 @@
 
 
 #include "MilDalPlayer.h"
+#include "MainCamera.h"
 #include "GameFramework/CharacterMovementComponent.h"
+#include "MilDalGameInstance.h"
 
 // Sets default values
 AMilDalPlayer::AMilDalPlayer()
@@ -44,6 +46,10 @@ void AMilDalPlayer::Tick(float DeltaTime)
 {
     Super::Tick(DeltaTime);
 
+    if (GetActorLocation().Z < -100.0f)
+    {
+        RespawnPlayer();
+    }
 }
 
 // Called to bind functionality to input
@@ -79,23 +85,37 @@ void AMilDalPlayer::EndJump()
     bPressedJump = true;
 }
 
-void AMilDalPlayer::TestFunc()
-{
-    UE_LOG(LogTemp, Log, TEXT("TestFunc"));
-}
-
 void AMilDalPlayer::OnOverlapBegin(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
     if (OtherActor->ActorHasTag("Camera"))
     {
         UE_LOG(LogTemp, Log, TEXT("BACK!! %s"), *OtherActor->GetName());
-        SetPlayerVisibility(true);
+        SetPlayerHide(true);
+        RespawnPlayer();
+        SetPlayerHide(false);
     }
 }
 
-void AMilDalPlayer::SetPlayerVisibility(bool isHide)
+void AMilDalPlayer::SetPlayerHide(bool isHide)
 {
     SetActorHiddenInGame(isHide);
     SetActorEnableCollision(!isHide);
     SetActorTickEnabled(!isHide);
+}
+
+void AMilDalPlayer::RespawnPlayer()
+{
+    // 현재 main 카메라의 위치를 기준으로 리스폰 위치를 정해야 한다.
+    MilDalGameManager().GetCameraInfo();
+
+    FVector respawnLocation(-250.0f,-250.0f,400.0f);
+
+    if(!this->ActorHasTag("Player1P"))
+    {
+        respawnLocation.Y *= -1;
+    }
+
+    Life--;
+    UE_LOG(LogTemp, Log, TEXT("%s's Life : %d"), *this->GetName(), Life);
+    SetActorLocation(respawnLocation);
 }
