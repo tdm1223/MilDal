@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "Components/CapsuleComponent.h"
 #include "MilDalPlayer.generated.h"
 
 UCLASS()
@@ -26,4 +27,16 @@ public:
     // Called to bind functionality to input
     virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
+    void MoveForward(float AxisValue);
+    void MoveRight(float AxisValue);
+    void StartJump();
+    void EndJump();
+    void TestFunc();
+
+    UFUNCTION()
+    void OnOverlapBegin(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
+
+    void SetPlayerVisibility(bool isHide);
+private:
+    void Drop();
 };
