@@ -30,6 +30,7 @@ AMilDalPlayer::AMilDalPlayer()
     // 이동 방향과 바라보는 방향을 맞춰줌
     GetCharacterMovement()->bOrientRotationToMovement = true;
     bUseControllerRotationYaw = false;
+    bIsReverse = false;
 }
 
 // Called when the game starts or when spawned
@@ -66,13 +67,29 @@ void AMilDalPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputCompon
 void AMilDalPlayer::MoveForward(float AxisValue)
 {
     FVector Direction = FRotationMatrix(Controller->GetControlRotation()).GetScaledAxis(EAxis::X);
-    AddMovementInput(Direction, AxisValue);
+    if (!bIsReverse)
+    {
+        AddMovementInput(Direction, AxisValue);
+    }
+    else
+    {
+        Direction *= -1;
+        AddMovementInput(Direction, AxisValue);
+    }
 }
 
 void AMilDalPlayer::MoveRight(float AxisValue)
 {
     FVector Direction = FRotationMatrix(Controller->GetControlRotation()).GetScaledAxis(EAxis::Y);
-    AddMovementInput(Direction, AxisValue);
+    if (!bIsReverse)
+    {
+        AddMovementInput(Direction, AxisValue);
+    }
+    else
+    {
+        Direction *= -1;
+        AddMovementInput(Direction, AxisValue);
+    }
 }
 
 void AMilDalPlayer::StartJump()
@@ -106,11 +123,20 @@ void AMilDalPlayer::SetPlayerHide(bool isHide)
 void AMilDalPlayer::RespawnPlayer()
 {
     // 현재 main 카메라의 위치를 기준으로 리스폰 위치를 정해야 한다.
-    MilDalGameManager().GetCameraInfo();
+    FVector cameraLocation = MilDalGameManager().GetCameraInfo();
 
-    FVector respawnLocation(-250.0f,-250.0f,400.0f);
+    FVector respawnLocation = cameraLocation + AdditionalVector;
 
-    if(!this->ActorHasTag("Player1P"))
+    GetCharacterMovement()->GravityScale = 0.0f;
+    GetCharacterMovement()->Velocity = FVector(0.0f, 0.0f, 0.0f);
+
+    FTimerHandle WaitHandle;
+    GetWorld()->GetTimerManager().SetTimer(WaitHandle, FTimerDelegate::CreateLambda([&]()
+    {
+        GetCharacterMovement()->GravityScale = 1.0f;
+    }), RespawnDelay, false);
+
+    if (!this->ActorHasTag("Player1P"))
     {
         respawnLocation.Y *= -1;
     }
@@ -118,4 +144,9 @@ void AMilDalPlayer::RespawnPlayer()
     Life--;
     UE_LOG(LogTemp, Log, TEXT("%s's Life : %d"), *this->GetName(), Life);
     SetActorLocation(respawnLocation);
+}
+
+void AMilDalPlayer::IncreaseLife()
+{
+    Life++;
 }

@@ -41,9 +41,23 @@ public:
     void SetPlayerHide(bool isHide);
     void RespawnPlayer();
 
+    void IncreaseLife();
+
     UPROPERTY(EditAnywhere)
     TSubclassOf<class AMainCamera> MainCamera;
 
+    bool GetReverse()
+    {
+        return bIsReverse;
+    }
+
+    void SetReverse(bool reverse)
+    {
+        bIsReverse = reverse;
+    }
+
 private:
-    void Drop();
+    bool bIsReverse = false;
+    float RespawnDelay = 2.0f;
+    FVector AdditionalVector = FVector(400.0f, 0.0f, -100.0f);
 };

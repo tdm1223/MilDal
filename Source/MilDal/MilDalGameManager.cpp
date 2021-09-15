@@ -1,9 +1,22 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
-
 #include "MilDalGameManager.h"
+#include "Kismet/GameplayStatics.h"
 
-void UMilDalGameManager::GetCameraInfo()
+UMilDalGameManager::UMilDalGameManager()
 {
-    UE_LOG(LogTemp, Log, TEXT("GetCameraInfo"));
+    FindClassType = AMainCamera::StaticClass();
+
+    TArray<AActor*> actors;
+    UGameplayStatics::GetAllActorsOfClass(GetWorld(), FindClassType, actors);
+
+    for (auto actor : actors)
+    {
+        MainCamera = Cast<AMainCamera>(actor);
+    }
+}
+
+FVector UMilDalGameManager::GetCameraInfo()
+{
+    UE_LOG(LogTemp, Log, TEXT("GetCameraInfo : %f %f %f"), MainCamera->GetActorLocation().X, MainCamera->GetActorLocation().Y, MainCamera->GetActorLocation().Z);
+
+    return MainCamera->GetActorLocation();
 }
