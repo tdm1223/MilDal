@@ -13,18 +13,14 @@ class MILDAL_API AMilDalPlayer : public ACharacter
     GENERATED_BODY()
 
 public:
-    // Sets default values for this character's properties
     AMilDalPlayer();
 
 protected:
-    // Called when the game starts or when spawned
     virtual void BeginPlay() override;
 
 public:
-    // Called every frame
     virtual void Tick(float DeltaTime) override;
 
-    // Called to bind functionality to input
     virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
     void MoveForward(float AxisValue);
@@ -33,10 +29,10 @@ public:
     void EndJump();
 
     UFUNCTION()
-    void OnOverlapBegin(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
+        void OnOverlapBegin(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 
     UPROPERTY(EditAnywhere)
-    int Life = 5;
+        int Life = 5;
 
     void SetPlayerHide(bool isHide);
     void RespawnPlayer();
@@ -44,7 +40,7 @@ public:
     void IncreaseLife();
 
     UPROPERTY(EditAnywhere)
-    TSubclassOf<class AMainCamera> MainCamera;
+        TSubclassOf<class AMainCamera> MainCamera;
 
     bool GetReverse()
     {

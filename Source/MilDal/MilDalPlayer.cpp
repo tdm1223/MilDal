@@ -6,10 +6,11 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "MilDalGameInstance.h"
 
-// Sets default values
 AMilDalPlayer::AMilDalPlayer()
 {
-    // Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+    JumpMaxHoldTime = 5.0f;
+    GetCharacterMovement()->JumpZVelocity = 500.0f; // 점프 높이.
+
     PrimaryActorTick.bCanEverTick = true;
 
     static ConstructorHelpers::FObjectFinder<USkeletalMesh> PlayerModel(TEXT("SkeletalMesh'/Game/Character/Mesh/SK_Mannequin.SK_Mannequin'"));
@@ -21,7 +22,7 @@ AMilDalPlayer::AMilDalPlayer()
         GetMesh()->SetRelativeRotation(FRotator(0.0f, -90.0f, 0.0f));
     }
 
-    static ConstructorHelpers::FClassFinder<UAnimInstance> PlayerAnimation(TEXT("AnimBlueprint'/Game/Animations/ThirdPerson_AnimBP.ThirdPerson_AnimBP_C'"));
+    static ConstructorHelpers::FClassFinder<UAnimInstance> PlayerAnimation(TEXT("AnimBlueprint'/Game/Blueprints/BP_PlayerAnim.BP_PlayerAnim_C'"));
     if (PlayerAnimation.Succeeded())
     {
         GetMesh()->SetAnimInstanceClass(PlayerAnimation.Class);
@@ -31,9 +32,10 @@ AMilDalPlayer::AMilDalPlayer()
     GetCharacterMovement()->bOrientRotationToMovement = true;
     bUseControllerRotationYaw = false;
     bIsReverse = false;
+
+
 }
 
-// Called when the game starts or when spawned
 void AMilDalPlayer::BeginPlay()
 {
     Super::BeginPlay();
@@ -53,7 +55,6 @@ void AMilDalPlayer::Tick(float DeltaTime)
     }
 }
 
-// Called to bind functionality to input
 void AMilDalPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
     Super::SetupPlayerInputComponent(PlayerInputComponent);
@@ -94,12 +95,14 @@ void AMilDalPlayer::MoveRight(float AxisValue)
 
 void AMilDalPlayer::StartJump()
 {
+    UE_LOG(LogTemp, Log, TEXT("StartJump"));
     bPressedJump = true;
 }
 
 void AMilDalPlayer::EndJump()
 {
-    bPressedJump = true;
+    UE_LOG(LogTemp, Log, TEXT("EndJump"));
+    bPressedJump = false;
 }
 
 void AMilDalPlayer::OnOverlapBegin(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
@@ -132,9 +135,9 @@ void AMilDalPlayer::RespawnPlayer()
 
     FTimerHandle WaitHandle;
     GetWorld()->GetTimerManager().SetTimer(WaitHandle, FTimerDelegate::CreateLambda([&]()
-    {
-        GetCharacterMovement()->GravityScale = 1.0f;
-    }), RespawnDelay, false);
+        {
+            GetCharacterMovement()->GravityScale = 1.0f;
+        }), RespawnDelay, false);
 
     if (!this->ActorHasTag("Player1P"))
     {
