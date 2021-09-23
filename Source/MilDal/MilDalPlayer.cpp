@@ -8,9 +8,6 @@
 
 AMilDalPlayer::AMilDalPlayer()
 {
-    JumpMaxHoldTime = 5.0f;
-    GetCharacterMovement()->JumpZVelocity = 500.0f; // 점프 높이.
-
     PrimaryActorTick.bCanEverTick = true;
 
     static ConstructorHelpers::FObjectFinder<USkeletalMesh> PlayerModel(TEXT("SkeletalMesh'/Game/Character/Mesh/SK_Mannequin.SK_Mannequin'"));
@@ -95,13 +92,11 @@ void AMilDalPlayer::MoveRight(float AxisValue)
 
 void AMilDalPlayer::StartJump()
 {
-    UE_LOG(LogTemp, Log, TEXT("StartJump"));
     bPressedJump = true;
 }
 
 void AMilDalPlayer::EndJump()
 {
-    UE_LOG(LogTemp, Log, TEXT("EndJump"));
     bPressedJump = false;
 }
 
