@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "Components/CapsuleComponent.h"
+#include "Components/TextRenderComponent.h"
 #include "MilDalPlayer.generated.h"
 
 UCLASS()
@@ -41,6 +42,9 @@ public:
 
     UPROPERTY(EditAnywhere)
         TSubclassOf<class AMainCamera> MainCamera;
+
+    UPROPERTY(VisibleAnywhere)
+        UTextRenderComponent* NameText;
 
     bool GetReverse()
     {

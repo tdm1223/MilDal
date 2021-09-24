@@ -10,16 +10,19 @@ AMilDalPlayer::AMilDalPlayer()
 {
     PrimaryActorTick.bCanEverTick = true;
 
-    static ConstructorHelpers::FObjectFinder<USkeletalMesh> PlayerModel(TEXT("SkeletalMesh'/Game/Character/Mesh/SK_Mannequin.SK_Mannequin'"));
+    static ConstructorHelpers::FObjectFinder<USkeletalMesh> PlayerModel(TEXT("SkeletalMesh'/Game/Character/Monkey_Mesh.Monkey_Mesh'"));
 
     if (PlayerModel.Succeeded())
     {
         GetMesh()->SetSkeletalMesh(PlayerModel.Object);
-        GetMesh()->SetRelativeLocation(FVector(0.0f, 0.0f, -88.0f));
-        GetMesh()->SetRelativeRotation(FRotator(0.0f, -90.0f, 0.0f));
+        GetMesh()->SetRelativeLocation(FVector(0.0f, 0.0f, -70.0f));
+        GetMesh()->SetRelativeRotation(FRotator(0.0f, 90.0f, 0.0f));
+        GetMesh()->SetRelativeScale3D(FVector(0.5f, 0.5f, 0.5f));
     }
 
-    static ConstructorHelpers::FClassFinder<UAnimInstance> PlayerAnimation(TEXT("AnimBlueprint'/Game/Blueprints/BP_PlayerAnim.BP_PlayerAnim_C'"));
+    GetCapsuleComponent()->SetCapsuleHalfHeight(68.0f);
+    GetCapsuleComponent()->SetCapsuleRadius(28.0f);
+    static ConstructorHelpers::FClassFinder<UAnimInstance> PlayerAnimation(TEXT("AnimBlueprint'/Game/Animations/BP_PlayerAnim.BP_PlayerAnim_C'"));
     if (PlayerAnimation.Succeeded())
     {
         GetMesh()->SetAnimInstanceClass(PlayerAnimation.Class);
@@ -30,7 +33,12 @@ AMilDalPlayer::AMilDalPlayer()
     bUseControllerRotationYaw = false;
     bIsReverse = false;
 
-
+    NameText = CreateDefaultSubobject<UTextRenderComponent>("PlayerName");
+    NameText->SetWorldRotation(FRotator(0.0f, 180.0f, 0.0f));
+    NameText->SetUsingAbsoluteRotation(true);
+    NameText->SetRelativeLocation(FVector(0.0f, 0.0f, 80.0f));
+    NameText->SetTextRenderColor(FColor::Red);
+    NameText->SetupAttachment(RootComponent);
 }
 
 void AMilDalPlayer::BeginPlay()
@@ -39,6 +47,17 @@ void AMilDalPlayer::BeginPlay()
 
     // 생성자가 아닌 BeginPlay에 추가해줘야 한다.
     GetCapsuleComponent()->OnComponentBeginOverlap.AddDynamic(this, &AMilDalPlayer::OnOverlapBegin);
+
+    FString name;
+    if (this->ActorHasTag("Player2P"))
+    {
+        name = TEXT("2P");
+    }
+    else
+    {
+        name = TEXT("1P");
+    }
+    NameText->SetText(FText::FromString(name));
 }
 
 // Called every frame
