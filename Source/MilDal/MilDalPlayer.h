@@ -46,18 +46,15 @@ public:
     UPROPERTY(VisibleAnywhere)
         UTextRenderComponent* NameText;
 
-    bool GetReverse()
-    {
-        return bIsReverse;
-    }
-
     void SetReverse(bool reverse)
     {
         bIsReverse = reverse;
     }
 
-private:
+    UPROPERTY(BlueprintReadOnly)
     bool bIsReverse = false;
+
+private:
     float RespawnDelay = 2.0f;
     FVector AdditionalVector = FVector(400.0f, 0.0f, -100.0f);
 };

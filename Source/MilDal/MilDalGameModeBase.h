@@ -6,6 +6,7 @@
 #include "GameFramework/GameModeBase.h"
 #include "MainCamera.h"
 #include "GameFramework/PlayerStart.h"
+#include "MilDalPlayer.h"
 #include "MilDalGameModeBase.generated.h"
 
 /**
@@ -20,4 +21,10 @@ public:
     AMilDalGameModeBase();
     virtual void BeginPlay();
     virtual void Tick(float DeltaTime);
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
+        AMilDalPlayer* PlyaerOne;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
+        AMilDalPlayer* PlayerTwo;
 };

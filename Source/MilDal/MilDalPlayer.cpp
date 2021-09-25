@@ -1,9 +1,7 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
-
 #include "MilDalPlayer.h"
 #include "MainCamera.h"
 #include "GameFramework/CharacterMovementComponent.h"
+#include "Engine/BlueprintGeneratedClass.h"
 #include "MilDalGameInstance.h"
 
 AMilDalPlayer::AMilDalPlayer()
@@ -48,13 +46,16 @@ void AMilDalPlayer::BeginPlay()
     // 생성자가 아닌 BeginPlay에 추가해줘야 한다.
     GetCapsuleComponent()->OnComponentBeginOverlap.AddDynamic(this, &AMilDalPlayer::OnOverlapBegin);
 
+    // 플레이어를 구별하여 이름표를 달고 매니저에 등록
     FString name;
     if (this->ActorHasTag("Player2P"))
     {
+        MilDalGameManager().RegisterPlayer(this, false);
         name = TEXT("2P");
     }
     else
     {
+        MilDalGameManager().RegisterPlayer(this, true);
         name = TEXT("1P");
     }
     NameText->SetText(FText::FromString(name));

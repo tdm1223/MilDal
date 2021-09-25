@@ -10,6 +10,7 @@ UMilDalGameManager::UMilDalGameManager()
 
     for (auto actor : actors)
     {
+        UE_LOG(LogTemp, Log, TEXT("%s"), *actor->GetName());
         MainCamera = Cast<AMainCamera>(actor);
     }
 }
@@ -19,4 +20,28 @@ FVector UMilDalGameManager::GetCameraInfo()
     UE_LOG(LogTemp, Log, TEXT("GetCameraInfo : %f %f %f"), MainCamera->GetActorLocation().X, MainCamera->GetActorLocation().Y, MainCamera->GetActorLocation().Z);
 
     return MainCamera->GetActorLocation();
+}
+
+void UMilDalGameManager::SetReverse(bool bReverse, bool bIsPlayerOne)
+{
+    if (bIsPlayerOne)
+    {
+        PlayerTwo->SetReverse(bReverse);
+    }
+    else
+    {
+        PlayerOne->SetReverse(bReverse);
+    }
+}
+
+void UMilDalGameManager::RegisterPlayer(AMilDalPlayer* player, bool bIsPlayerOne)
+{
+    if (bIsPlayerOne)
+    {
+        PlayerOne = player;
+    }
+    else
+    {
+        PlayerTwo = player;
+    }
 }

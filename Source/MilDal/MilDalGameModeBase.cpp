@@ -10,8 +10,7 @@ AMilDalGameModeBase::AMilDalGameModeBase()
 {
     PrimaryActorTick.bCanEverTick = false;
 
-    FString path("Blueprint'/Game/Blueprints/BP_PlayerOne.BP_PlayerOne_C'");
-    ConstructorHelpers::FClassFinder<APawn> player(*path);
+    ConstructorHelpers::FClassFinder<APawn> player(*FString(TEXT("Blueprint'/Game/Blueprints/BP_PlayerOne.BP_PlayerOne_C'")));
 
     if (player.Succeeded())
     {
