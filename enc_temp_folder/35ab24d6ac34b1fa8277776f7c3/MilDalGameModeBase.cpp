@@ -32,19 +32,21 @@ void AMilDalGameModeBase::SpawnHelicopter()
 
     bool flag = FMath::RandBool();
     UE_LOG(LogTemp, Log, TEXT("flag : %d"), flag);
-    FTransform SpawnLocation;
 
     FVector AdditionalVector = FVector(1000.0f, 1000.0f, -380.0f);
     if (flag)
     {
         AdditionalVector.Y *= -1;
-        SpawnLocation.SetRotation(FQuat(FRotator(0.0f, 180.0f, 0.0f)));
     }
+    FTransform SpawnLocation;
     SpawnLocation.SetLocation(MilDalGameManager().GetCameraInfo() + AdditionalVector);
-
     GetWorld()->SpawnActor<AHelicopter>(AHelicopter::StaticClass(), SpawnLocation);
 
-    float randomTime = FMath::RandHelper(5) + 3;
+
+
+    //float randomTime = FMath::RandHelper(5) + 3;
+    float randomTime = 2;
+    UE_LOG(LogTemp, Log, TEXT("RANDOM! %f"), randomTime);
     GetWorld()->GetTimerManager().SetTimer(WaitHandle, FTimerDelegate::CreateLambda([&]()
         {
             SpawnHelicopter();

@@ -20,6 +20,7 @@ class MILDAL_API AMilDalGameModeBase : public AGameModeBase
 public:
     AMilDalGameModeBase();
     virtual void BeginPlay();
+    void SpawnHelicopter();
     virtual void Tick(float DeltaTime);
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
