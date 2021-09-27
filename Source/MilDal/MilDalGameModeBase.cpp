@@ -6,6 +6,7 @@
 #include "GameFramework/PlayerController.h"
 #include "Helicopter.h"
 #include "MilDalGameInstance.h"
+#include "MilDalPlayerController.h"
 #include "MilDalPlayer.h"
 
 AMilDalGameModeBase::AMilDalGameModeBase()
@@ -18,6 +19,8 @@ AMilDalGameModeBase::AMilDalGameModeBase()
     {
         DefaultPawnClass = player.Class;
     }
+
+    PlayerControllerClass = AMilDalPlayerController::StaticClass();
 }
 
 void AMilDalGameModeBase::BeginPlay()

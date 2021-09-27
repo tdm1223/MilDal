@@ -35,6 +35,11 @@ public:
     UPROPERTY(EditAnywhere)
         int Life = 5;
 
+    int GetLife()
+    {
+        return Life;
+    }
+
     void SetPlayerHide(bool isHide);
     void RespawnPlayer();
 

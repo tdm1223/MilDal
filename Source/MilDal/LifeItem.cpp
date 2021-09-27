@@ -6,11 +6,11 @@ ALifeItem::ALifeItem()
 
     StaticMeshComp = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("StaticMesh"));
 
-    static ConstructorHelpers::FObjectFinder<UStaticMesh> TileModel(TEXT("StaticMesh'/Game/StarterContent/Props/MaterialSphere.MaterialSphere'"));
+    static ConstructorHelpers::FObjectFinder<UStaticMesh> LifeModel(TEXT("StaticMesh'/Game/StarterContent/Props/MaterialSphere.MaterialSphere'"));
 
-    if (TileModel.Succeeded())
+    if (LifeModel.Succeeded())
     {
-        StaticMeshComp->SetStaticMesh(TileModel.Object);
+        StaticMeshComp->SetStaticMesh(LifeModel.Object);
         StaticMeshComp->SetWorldScale3D(FVector(0.5f, 0.5f, 0.5f));
         StaticMeshComp->SetRelativeLocation(FVector(0.0f, 0.0f, 0.0f));
     }
