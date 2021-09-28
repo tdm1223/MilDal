@@ -8,7 +8,7 @@ AMilDalPlayer::AMilDalPlayer()
 {
     PrimaryActorTick.bCanEverTick = true;
 
-    static ConstructorHelpers::FObjectFinder<USkeletalMesh> PlayerModel(TEXT("SkeletalMesh'/Game/Character/Monkey_Mesh.Monkey_Mesh'"));
+    static ConstructorHelpers::FObjectFinder<USkeletalMesh> PlayerModel(TEXT("SkeletalMesh'/Game/Character/Mesh/Monkey_Mesh.Monkey_Mesh'"));
 
     if (PlayerModel.Succeeded())
     {
