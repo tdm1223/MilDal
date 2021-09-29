@@ -2,7 +2,10 @@
 #include "MainCamera.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Engine/BlueprintGeneratedClass.h"
+#include "CharacterStatComponent.h"
+#include "Components/WidgetComponent.h"
 #include "MilDalGameInstance.h"
+#include "MainWidget.h"
 
 AMilDalPlayer::AMilDalPlayer()
 {
@@ -37,6 +40,8 @@ AMilDalPlayer::AMilDalPlayer()
     NameText->SetRelativeLocation(FVector(0.0f, 0.0f, 80.0f));
     NameText->SetTextRenderColor(FColor::Red);
     NameText->SetupAttachment(RootComponent);
+
+    this->characterStatComponent = CreateDefaultSubobject<UCharacterStatComponent>(TEXT("PlayerStat"));
 }
 
 void AMilDalPlayer::BeginPlay()
@@ -46,19 +51,16 @@ void AMilDalPlayer::BeginPlay()
     // 생성자가 아닌 BeginPlay에 추가해줘야 한다.
     GetCapsuleComponent()->OnComponentBeginOverlap.AddDynamic(this, &AMilDalPlayer::OnOverlapBegin);
 
-    // 플레이어를 구별하여 이름표를 달고 매니저에 등록
-    FString name;
     if (this->ActorHasTag("Player2P"))
     {
         MilDalGameManager().RegisterPlayer(this, false);
-        name = TEXT("2P");
     }
     else
     {
         MilDalGameManager().RegisterPlayer(this, true);
-        name = TEXT("1P");
+        MilDalGameManager().RegisterController();
     }
-    NameText->SetText(FText::FromString(name));
+    NameText->SetText(FText::FromString(characterStatComponent->GetName()));
 }
 
 // Called every frame
@@ -159,12 +161,12 @@ void AMilDalPlayer::RespawnPlayer()
         respawnLocation.Y *= -1;
     }
 
-    Life--;
-    UE_LOG(LogTemp, Log, TEXT("%s's Life : %d"), *this->GetName(), Life);
+    characterStatComponent->DecreaseLife();
+    UE_LOG(LogTemp, Log, TEXT("%s's Life : %d"), *this->GetName(), characterStatComponent->Life);
     SetActorLocation(respawnLocation);
 }
 
 void AMilDalPlayer::IncreaseLife()
 {
-    Life++;
+    characterStatComponent->IncreaseLife();
 }

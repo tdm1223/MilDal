@@ -32,14 +32,6 @@ public:
     UFUNCTION()
         void OnOverlapBegin(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 
-    UPROPERTY(EditAnywhere)
-        int Life = 5;
-
-    int GetLife()
-    {
-        return Life;
-    }
-
     void SetPlayerHide(bool isHide);
     void RespawnPlayer();
 
@@ -57,7 +49,10 @@ public:
     }
 
     UPROPERTY(BlueprintReadOnly)
-    bool bIsReverse = false;
+        bool bIsReverse = false;
+
+    UPROPERTY(VisibleAnywhere)
+        class UCharacterStatComponent* characterStatComponent;
 
 private:
     float RespawnDelay = 2.0f;
