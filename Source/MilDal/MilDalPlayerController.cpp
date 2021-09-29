@@ -3,7 +3,7 @@
 
 AMilDalPlayerController::AMilDalPlayerController()
 {
-    static ConstructorHelpers::FClassFinder<UMainWidget> HUD(TEXT("WidgetBlueprint'/Game/Blueprints/MainWidget.MainWidget_C'"));
+    static ConstructorHelpers::FClassFinder<UMainWidget> HUD(TEXT("WidgetBlueprint'/Game/Blueprints/BP_MainWidget.BP_MainWidget_C'"));
     if (HUD.Succeeded())
     {
         HudWidgetClass = HUD.Class;
@@ -13,8 +13,14 @@ AMilDalPlayerController::AMilDalPlayerController()
 void AMilDalPlayerController::BeginPlay()
 {
     Super::BeginPlay();
-    SetInputMode(FInputModeGameAndUI());
+    FInputModeGameOnly InputMode;
+    SetInputMode(InputMode);
 
-    HudWidget = CreateWidget<UMainWidget>(this, HudWidgetClass);
-    HudWidget->AddToViewport(1);
+    MainWidget = CreateWidget<UMainWidget>(this, HudWidgetClass);
+    MainWidget->AddToViewport(1);
+}
+
+UMainWidget* AMilDalPlayerController::GetMainWidget() const
+{
+    return MainWidget;
 }

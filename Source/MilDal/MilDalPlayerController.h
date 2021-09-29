@@ -15,8 +15,9 @@ public:
         TSubclassOf<class UMainWidget> HudWidgetClass;
 
     UPROPERTY()
-        class UMainWidget* HudWidget;
+        class UMainWidget* MainWidget;
 
 public:
     virtual void BeginPlay();
+    UMainWidget* GetMainWidget() const;
 };

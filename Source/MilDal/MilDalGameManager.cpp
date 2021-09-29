@@ -1,5 +1,9 @@
 #include "MilDalGameManager.h"
 #include "Kismet/GameplayStatics.h"
+#include "MilDalPlayerController.h"
+#include "MilDalPlayer.h"
+#include "MainCamera.h"
+#include "MainWidget.h"
 
 UMilDalGameManager::UMilDalGameManager()
 {
@@ -44,4 +48,15 @@ void UMilDalGameManager::RegisterPlayer(AMilDalPlayer* player, bool bIsPlayerOne
     {
         PlayerTwo = player;
     }
+}
+
+void UMilDalGameManager::RegisterController()
+{
+    controller = Cast<AMilDalPlayerController>(UGameplayStatics::GetPlayerController(this, 0));
+    MainWidget = controller->GetMainWidget();
+}
+
+UMainWidget* UMilDalGameManager::GetMainwWidget() const
+{
+    return MainWidget;
 }

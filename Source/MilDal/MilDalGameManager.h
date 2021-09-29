@@ -2,9 +2,12 @@
 
 #include "CoreMinimal.h"
 #include "UObject/NoExportTypes.h"
-#include "MainCamera.h"
-#include "MilDalPlayer.h"
 #include "MilDalGameManager.generated.h"
+
+class AMilDalPlayer;
+class AMainCamera;
+class UMainWidget;
+class AMilDalPlayerController;
 
 UCLASS()
 class MILDAL_API UMilDalGameManager : public UObject
@@ -13,7 +16,7 @@ class MILDAL_API UMilDalGameManager : public UObject
 
 private:
     UPROPERTY(EditDefaultsOnly)
-        TSubclassOf<class AMainCamera> FindClassType;
+        TSubclassOf<AMainCamera> FindClassType;
 
 public:
     UMilDalGameManager();
@@ -21,6 +24,8 @@ public:
 
     void SetReverse(bool bReverse, bool bIsPlayerOne);
     void RegisterPlayer(AMilDalPlayer* player, bool bIsPlayerOne);
+    void RegisterController();
+    class UMainWidget* GetMainwWidget() const;
 
     UPROPERTY(EditAnywhere)
         AMainCamera* MainCamera;
@@ -30,4 +35,10 @@ public:
 
     UPROPERTY(VisibleAnywhere)
         AMilDalPlayer* PlayerTwo;
+
+    UPROPERTY(VisibleAnywhere)
+        UMainWidget* MainWidget;
+
+    UPROPERTY()
+        AMilDalPlayerController* controller;
 };
