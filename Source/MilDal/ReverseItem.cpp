@@ -6,11 +6,11 @@ AReverseItem::AReverseItem()
 
     StaticMeshComp = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("StaticMesh"));
 
-    static ConstructorHelpers::FObjectFinder<UStaticMesh> TileModel(TEXT("StaticMesh'/Game/StarterContent/Props/MaterialSphere.MaterialSphere'"));
+    static ConstructorHelpers::FObjectFinder<UStaticMesh> ReverseModel(TEXT("StaticMesh'/Game/StarterContent/Props/MaterialSphere.MaterialSphere'"));
 
-    if (TileModel.Succeeded())
+    if (ReverseModel.Succeeded())
     {
-        StaticMeshComp->SetStaticMesh(TileModel.Object);
+        StaticMeshComp->SetStaticMesh(ReverseModel.Object);
         StaticMeshComp->SetWorldScale3D(FVector(0.5f, 0.5f, 0.5f));
         StaticMeshComp->SetRelativeLocation(FVector(0.0f, 0.0f, 0.0f));
     }

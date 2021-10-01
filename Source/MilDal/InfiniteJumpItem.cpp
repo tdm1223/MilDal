@@ -8,19 +8,20 @@ AInfiniteJumpItem::AInfiniteJumpItem()
 
     StaticMeshComp = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("StaticMesh"));
 
-    static ConstructorHelpers::FObjectFinder<UStaticMesh> TileModel(TEXT("StaticMesh'/Game/StarterContent/Props/MaterialSphere.MaterialSphere'"));
+    //static ConstructorHelpers::FObjectFinder<UStaticMesh> TileModel(TEXT("StaticMesh'/Game/StarterContent/Props/MaterialSphere.MaterialSphere'"));
+    static ConstructorHelpers::FObjectFinder<UStaticMesh> TileModel(TEXT("StaticMesh'/Game/Prop/Meshes/InfiniteJump.InfiniteJump'"));
 
     if (TileModel.Succeeded())
     {
         StaticMeshComp->SetStaticMesh(TileModel.Object);
-        StaticMeshComp->SetWorldScale3D(FVector(0.5f, 0.5f, 0.5f));
+        StaticMeshComp->SetWorldScale3D(FVector(3.0f, 3.0f, 3.0f));
         StaticMeshComp->SetRelativeLocation(FVector(0.0f, 0.0f, 0.0f));
     }
     RootComponent = StaticMeshComp;
 
     CapsuleComponent = CreateDefaultSubobject<UCapsuleComponent>(TEXT("CapsuleComponent"));
-    CapsuleComponent->SetCapsuleHalfHeight(60.0f);
-    CapsuleComponent->SetCapsuleRadius(60.0f);
+    CapsuleComponent->SetCapsuleHalfHeight(10.0f);
+    CapsuleComponent->SetCapsuleRadius(10.0f);
     CapsuleComponent->SetRelativeLocation(FVector(0.0f, 0.0f, 0.0f));
     CapsuleComponent->SetupAttachment(RootComponent);
 
