@@ -60,8 +60,16 @@ public:
         }
     }
 
+    void SetFast(bool fast)
+    {
+        bIsFast = fast;
+    }
+
     UPROPERTY(BlueprintReadOnly)
         bool bIsReverse = false;
+
+    UPROPERTY(BlueprintReadOnly)
+        bool bIsFast = false;
 
     UPROPERTY(VisibleAnywhere)
         class UCharacterStatComponent* characterStatComponent;

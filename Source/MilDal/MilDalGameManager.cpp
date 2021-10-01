@@ -50,6 +50,18 @@ void UMilDalGameManager::SetInfiniteJump(bool bJump, PlayerType InEatPlayer)
     }
 }
 
+void UMilDalGameManager::SetFast(bool bFast, PlayerType InEatPlayer)
+{
+    if (InEatPlayer == PlayerType::PlayerOne)
+    {
+        PlayerTwo->SetFast(bFast);
+    }
+    else if (InEatPlayer == PlayerType::PlayerTwo)
+    {
+        PlayerOne->SetFast(bFast);
+    }
+}
+
 void UMilDalGameManager::RegistPlayer(AMilDalPlayer* player, PlayerType InCurrentPlayer)
 {
     if (InCurrentPlayer == PlayerType::PlayerOne)

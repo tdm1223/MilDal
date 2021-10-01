@@ -28,8 +28,10 @@ public:
     UMilDalGameManager();
     FVector GetCameraInfo();
 
-    void SetReverse(bool bReverse, PlayerType playerType);
+    void SetReverse(bool bReverse, PlayerType InEatPlayer);
     void SetInfiniteJump(bool bReverse, PlayerType InEatPlayer);
+    void SetFast(bool bFast, PlayerType InEatPlayer);
+
     void RegistPlayer(AMilDalPlayer* player, PlayerType InCurrentPlayer);
     void RegistController();
     class UMainWidget* GetMainwWidget() const;

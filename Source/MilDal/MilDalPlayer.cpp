@@ -33,6 +33,7 @@ AMilDalPlayer::AMilDalPlayer()
     GetCharacterMovement()->bOrientRotationToMovement = true;
     bUseControllerRotationYaw = false;
     bIsReverse = false;
+    bIsFast = false;
 
     NameText = CreateDefaultSubobject<UTextRenderComponent>("PlayerName");
     NameText->SetWorldRotation(FRotator(0.0f, 180.0f, 0.0f));
@@ -71,6 +72,11 @@ void AMilDalPlayer::Tick(float DeltaTime)
     if (GetActorLocation().Z < -100.0f)
     {
         RespawnPlayer();
+    }
+
+    if (bIsFast)
+    {
+        AddMovementInput(FVector(1.0f, 0.0f, 0.0f), 5.0f);
     }
 }
 
