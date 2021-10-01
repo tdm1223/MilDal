@@ -26,31 +26,43 @@ FVector UMilDalGameManager::GetCameraInfo()
     return MainCamera->GetActorLocation();
 }
 
-void UMilDalGameManager::SetReverse(bool bReverse, bool bIsPlayerOne)
+void UMilDalGameManager::SetReverse(bool bReverse, PlayerType InEatPlayer)
 {
-    if (bIsPlayerOne)
+    if (InEatPlayer == PlayerType::PlayerOne)
     {
         PlayerTwo->SetReverse(bReverse);
     }
-    else
+    else if (InEatPlayer == PlayerType::PlayerTwo)
     {
         PlayerOne->SetReverse(bReverse);
     }
 }
 
-void UMilDalGameManager::RegisterPlayer(AMilDalPlayer* player, bool bIsPlayerOne)
+void UMilDalGameManager::SetInfiniteJump(bool bJump, PlayerType InEatPlayer)
 {
-    if (bIsPlayerOne)
+    if (InEatPlayer == PlayerType::PlayerOne)
+    {
+        PlayerOne->SetInfiniteJump(bJump);
+    }
+    else if (InEatPlayer == PlayerType::PlayerTwo)
+    {
+        PlayerTwo->SetInfiniteJump(bJump);
+    }
+}
+
+void UMilDalGameManager::RegistPlayer(AMilDalPlayer* player, PlayerType InCurrentPlayer)
+{
+    if (InCurrentPlayer == PlayerType::PlayerOne)
     {
         PlayerOne = player;
     }
-    else
+    else if (InCurrentPlayer == PlayerType::PlayerTwo)
     {
         PlayerTwo = player;
     }
 }
 
-void UMilDalGameManager::RegisterController()
+void UMilDalGameManager::RegistController()
 {
     controller = Cast<AMilDalPlayerController>(UGameplayStatics::GetPlayerController(this, 0));
     MainWidget = controller->GetMainWidget();

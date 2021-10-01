@@ -48,6 +48,18 @@ public:
         bIsReverse = reverse;
     }
 
+    void SetInfiniteJump(bool bJump)
+    {
+        if (bJump)
+        {
+            JumpMaxCount = 100;
+        }
+        else
+        {
+            JumpMaxCount = 1;
+        }
+    }
+
     UPROPERTY(BlueprintReadOnly)
         bool bIsReverse = false;
 

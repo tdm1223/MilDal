@@ -9,6 +9,12 @@ class AMainCamera;
 class UMainWidget;
 class AMilDalPlayerController;
 
+enum PlayerType
+{
+    PlayerOne,
+    PlayerTwo,
+};
+
 UCLASS()
 class MILDAL_API UMilDalGameManager : public UObject
 {
@@ -22,9 +28,10 @@ public:
     UMilDalGameManager();
     FVector GetCameraInfo();
 
-    void SetReverse(bool bReverse, bool bIsPlayerOne);
-    void RegisterPlayer(AMilDalPlayer* player, bool bIsPlayerOne);
-    void RegisterController();
+    void SetReverse(bool bReverse, PlayerType playerType);
+    void SetInfiniteJump(bool bReverse, PlayerType InEatPlayer);
+    void RegistPlayer(AMilDalPlayer* player, PlayerType InCurrentPlayer);
+    void RegistController();
     class UMainWidget* GetMainwWidget() const;
 
     UPROPERTY(EditAnywhere)

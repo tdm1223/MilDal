@@ -53,12 +53,12 @@ void AMilDalPlayer::BeginPlay()
 
     if (this->ActorHasTag("Player2P"))
     {
-        MilDalGameManager().RegisterPlayer(this, false);
+        MilDalGameManager().RegistPlayer(this, PlayerType::PlayerTwo);
     }
     else
     {
-        MilDalGameManager().RegisterPlayer(this, true);
-        MilDalGameManager().RegisterController();
+        MilDalGameManager().RegistPlayer(this, PlayerType::PlayerOne);
+        MilDalGameManager().RegistController();
     }
     NameText->SetText(FText::FromString(characterStatComponent->GetName()));
 }

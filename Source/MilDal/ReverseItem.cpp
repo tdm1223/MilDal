@@ -46,18 +46,18 @@ void AReverseItem::OnBeginOverlap(class UPrimitiveComponent* OverlappedComp, cla
     FTimerHandle WaitHandle;
     if (OtherActor->ActorHasTag("Player1P"))
     {
-        MilDalGameManager().SetReverse(true, true);
+        MilDalGameManager().SetReverse(true, PlayerType::PlayerOne);
         GetWorld()->GetTimerManager().SetTimer(WaitHandle, FTimerDelegate::CreateLambda([&]()
             {
-                MilDalGameManager().SetReverse(false, true);
+                MilDalGameManager().SetReverse(false, PlayerType::PlayerOne);
             }), ReverseTime, false);
     }
     else
     {
-        MilDalGameManager().SetReverse(true, false);
+        MilDalGameManager().SetReverse(true, PlayerType::PlayerTwo);
         GetWorld()->GetTimerManager().SetTimer(WaitHandle, FTimerDelegate::CreateLambda([&]()
             {
-                MilDalGameManager().SetReverse(false, false);
+                MilDalGameManager().SetReverse(false, PlayerType::PlayerTwo);
             }), ReverseTime, false);
     }
     this->Destroy();
