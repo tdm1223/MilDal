@@ -54,7 +54,7 @@ void AInfiniteJumpItem::OnBeginOverlap(class UPrimitiveComponent* OverlappedComp
                 MilDalGameManager().SetInfiniteJump(false, PlayerType::PlayerOne);
             }), ItemTime, false);
     }
-    else
+    else if(OtherActor->ActorHasTag("Player2P"))
     {
         MilDalGameManager().SetInfiniteJump(true, PlayerType::PlayerTwo);
         GetWorld()->GetTimerManager().SetTimer(WaitHandle, FTimerDelegate::CreateLambda([&]()

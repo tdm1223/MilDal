@@ -46,11 +46,11 @@ void ALifeItem::Tick(float DeltaTime)
 
 void ALifeItem::OnBeginOverlap(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-    if (OtherActor->ActorHasTag("PlayerOne"))
+    if (OtherActor->ActorHasTag("Player1P"))
     {
         Cast<AMilDalPlayer>(OtherActor)->IncreaseLife();
     }
-    else
+    else if(OtherActor->ActorHasTag("Player2P"))
     {
         Cast<AMilDalPlayer>(OtherActor)->IncreaseLife();
     }

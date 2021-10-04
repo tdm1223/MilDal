@@ -50,7 +50,7 @@ void AWind::OnBeginOverlap(class UPrimitiveComponent* OverlappedComp, class AAct
         FTransform SpawnLocation;
         SpawnLocation.SetLocation(GetActorLocation());
         GetWorld()->SpawnActor<AWindObstacle>(AWindObstacle::StaticClass(), SpawnLocation);
+        this->Destroy();
     }
-    this->Destroy();
 }
 

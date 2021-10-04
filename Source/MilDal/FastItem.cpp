@@ -54,7 +54,7 @@ void AFastItem::OnBeginOverlap(class UPrimitiveComponent* OverlappedComp, class 
                 MilDalGameManager().SetFast(false, PlayerType::PlayerOne);
             }), Duration, false);
     }
-    else
+    else if(OtherActor->ActorHasTag("Player2P"))
     {
         MilDalGameManager().SetFast(true, PlayerType::PlayerTwo);
         GetWorld()->GetTimerManager().SetTimer(WaitHandle, FTimerDelegate::CreateLambda([&]()
