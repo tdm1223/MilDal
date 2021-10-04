@@ -53,6 +53,7 @@ void AFastItem::OnBeginOverlap(class UPrimitiveComponent* OverlappedComp, class 
             {
                 MilDalGameManager().SetFast(false, PlayerType::PlayerOne);
             }), Duration, false);
+        this->Destroy();
     }
     else if(OtherActor->ActorHasTag("Player2P"))
     {
@@ -61,7 +62,7 @@ void AFastItem::OnBeginOverlap(class UPrimitiveComponent* OverlappedComp, class 
             {
                 MilDalGameManager().SetFast(false, PlayerType::PlayerTwo);
             }), Duration, false);
+        this->Destroy();
     }
-    this->Destroy();
 }
 

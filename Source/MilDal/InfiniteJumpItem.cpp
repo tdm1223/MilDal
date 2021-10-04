@@ -53,6 +53,7 @@ void AInfiniteJumpItem::OnBeginOverlap(class UPrimitiveComponent* OverlappedComp
             {
                 MilDalGameManager().SetInfiniteJump(false, PlayerType::PlayerOne);
             }), ItemTime, false);
+        this->Destroy();
     }
     else if(OtherActor->ActorHasTag("Player2P"))
     {
@@ -61,7 +62,7 @@ void AInfiniteJumpItem::OnBeginOverlap(class UPrimitiveComponent* OverlappedComp
             {
                 MilDalGameManager().SetInfiniteJump(false, PlayerType::PlayerTwo);
             }), ItemTime, false);
+        this->Destroy();
     }
-    this->Destroy();
 }
 

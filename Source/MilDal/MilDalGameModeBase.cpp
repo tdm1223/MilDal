@@ -9,6 +9,13 @@
 #include "MilDalPlayerController.h"
 #include "MilDalPlayer.h"
 
+// Item
+#include "ReverseItem.h"
+#include "FastItem.h"
+#include "InfiniteJumpItem.h"
+#include "LifeItem.h"
+#include "Wind.h"
+
 AMilDalGameModeBase::AMilDalGameModeBase()
 {
     PrimaryActorTick.bCanEverTick = false;
@@ -27,7 +34,37 @@ void AMilDalGameModeBase::BeginPlay()
 {
     Super::BeginPlay();
     SpawnHelicopter();
+
+    ItemArray.Add(AFastItem::StaticClass());
+    ItemArray.Add(AReverseItem::StaticClass());
+    ItemArray.Add(AInfiniteJumpItem::StaticClass());
+    ItemArray.Add(ALifeItem::StaticClass());
+    ItemArray.Add(AWind::StaticClass());
+
+    SpawnItem();
 }
+
+void AMilDalGameModeBase::SpawnItem()
+{
+    FTimerHandle WaitHandle;
+
+    FTransform SpawnLocation;
+
+    float randomXPosition = FMath::RandRange(400, 1200);
+    float randomYPosition = FMath::RandRange(-400, 400);
+    FVector AdditionalVector = FVector(randomXPosition, randomYPosition, -380.0f);
+    SpawnLocation.SetLocation(MilDalGameManager().GetCameraInfo() + AdditionalVector);
+
+    int randomIndex = FMath::RandHelper(ItemArray.Num());
+    GetWorld()->SpawnActor<AActor>(ItemArray[randomIndex], SpawnLocation);
+
+    float randomTime = FMath::RandHelper(1) + 3;
+    GetWorld()->GetTimerManager().SetTimer(WaitHandle, FTimerDelegate::CreateLambda([&]()
+        {
+            SpawnItem();
+        }), randomTime, false);
+}
+
 
 void AMilDalGameModeBase::SpawnHelicopter()
 {

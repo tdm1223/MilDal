@@ -51,6 +51,7 @@ void AReverseItem::OnBeginOverlap(class UPrimitiveComponent* OverlappedComp, cla
             {
                 MilDalGameManager().SetReverse(false, PlayerType::PlayerOne);
             }), ReverseTime, false);
+        this->Destroy();
     }
     else if(OtherActor->ActorHasTag("Player2P"))
     {
@@ -59,6 +60,7 @@ void AReverseItem::OnBeginOverlap(class UPrimitiveComponent* OverlappedComp, cla
             {
                 MilDalGameManager().SetReverse(false, PlayerType::PlayerTwo);
             }), ReverseTime, false);
+        this->Destroy();
+
     }
-    this->Destroy();
 }

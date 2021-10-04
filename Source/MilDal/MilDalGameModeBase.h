@@ -9,9 +9,6 @@
 #include "MilDalPlayer.h"
 #include "MilDalGameModeBase.generated.h"
 
-/**
- *
- */
 UCLASS()
 class MILDAL_API AMilDalGameModeBase : public AGameModeBase
 {
@@ -20,6 +17,7 @@ class MILDAL_API AMilDalGameModeBase : public AGameModeBase
 public:
     AMilDalGameModeBase();
     virtual void BeginPlay();
+    void SpawnItem();
     void SpawnHelicopter();
     virtual void Tick(float DeltaTime);
 
@@ -28,4 +26,7 @@ public:
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
         AMilDalPlayer* PlayerTwo;
+
+    UPROPERTY(EditAnywhere)
+        TArray<TSubclassOf<class AActor>> ItemArray;
 };

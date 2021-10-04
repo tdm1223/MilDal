@@ -49,10 +49,11 @@ void ALifeItem::OnBeginOverlap(class UPrimitiveComponent* OverlappedComp, class 
     if (OtherActor->ActorHasTag("Player1P"))
     {
         Cast<AMilDalPlayer>(OtherActor)->IncreaseLife();
+        this->Destroy();
     }
     else if(OtherActor->ActorHasTag("Player2P"))
     {
         Cast<AMilDalPlayer>(OtherActor)->IncreaseLife();
+        this->Destroy();
     }
-    this->Destroy();
 }
