@@ -27,13 +27,15 @@ void UCharacterStatComponent::BeginPlay()
 void UCharacterStatComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
     Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
+
+    // 체력 UI 표시 요청
     if (this->GetOwner()->ActorHasTag("Player2P"))
     {
-        MilDalGameManager().GetMainwWidget()->SetPlayerTwoLifeText(Life);
+        MilDalGameManager().GetMainwWidget()->SetPlayerTwoLife(Life);
     }
     else
     {
-        MilDalGameManager().GetMainwWidget()->SetPlayerOneLifeText(Life);
+        MilDalGameManager().GetMainwWidget()->SetPlayerOneLife(Life);
     }
 }
 
