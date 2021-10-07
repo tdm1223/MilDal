@@ -10,7 +10,7 @@ ALifeItem::ALifeItem()
 
     StaticMeshComp = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("StaticMesh"));
 
-    static ConstructorHelpers::FObjectFinder<UStaticMesh> LifeModel(TEXT("StaticMesh'/Game/StarterContent/Props/MaterialSphere.MaterialSphere'"));
+    static ConstructorHelpers::FObjectFinder<UStaticMesh> LifeModel(TEXT("StaticMesh'/Game/Prop/Meshes/Life.Life'"));
 
     if (LifeModel.Succeeded())
     {
@@ -23,7 +23,7 @@ ALifeItem::ALifeItem()
     CapsuleComponent = CreateDefaultSubobject<UCapsuleComponent>(TEXT("CapsuleComponent"));
     CapsuleComponent->SetCapsuleHalfHeight(60.0f);
     CapsuleComponent->SetCapsuleRadius(60.0f);
-    CapsuleComponent->SetRelativeLocation(FVector(0.0f, 0.0f, 0.0f));
+    CapsuleComponent->SetRelativeLocation(FVector(0.0f, 0.0f, 50.0f));
     CapsuleComponent->SetupAttachment(RootComponent);
 
     PitchValue = 0.f;

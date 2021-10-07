@@ -5,7 +5,7 @@
 
 UCharacterStatComponent::UCharacterStatComponent()
 {
-    PrimaryComponentTick.bCanEverTick = true;
+    PrimaryComponentTick.bCanEverTick = false;
     Life = 5;
     Speed = 200.0f;
 }
@@ -27,24 +27,34 @@ void UCharacterStatComponent::BeginPlay()
 void UCharacterStatComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
     Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
-
-    // 체력 UI 표시 요청
-    if (this->GetOwner()->ActorHasTag("Player2P"))
-    {
-        MilDalGameManager().GetMainwWidget()->SetPlayerTwoLife(Life);
-    }
-    else
-    {
-        MilDalGameManager().GetMainwWidget()->SetPlayerOneLife(Life);
-    }
 }
 
 void UCharacterStatComponent::IncreaseLife()
 {
-    Life++;
+    if (Life < 5)
+    {
+        Life++;
+        SetLifePanel();
+    }
 }
 
 void UCharacterStatComponent::DecreaseLife()
 {
-    Life--;
+    if (Life > 0)
+    {
+        Life--;
+        SetLifePanel();
+    }
+}
+
+void UCharacterStatComponent::SetLifePanel()
+{
+    if (this->GetOwner()->ActorHasTag("Player2P"))
+    {
+        MilDalGameManager().GetMainwWidget()->SetPlayerTwoLife(Life);
+    }
+    else if ((this->GetOwner()->ActorHasTag("Player1P")))
+    {
+        MilDalGameManager().GetMainwWidget()->SetPlayerOneLife(Life);
+    }
 }

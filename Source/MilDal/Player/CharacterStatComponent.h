@@ -42,10 +42,8 @@ public:
     UPROPERTY(VisibleAnywhere)
         FString Name;
 
-    UFUNCTION()
-        void IncreaseLife();
-
-    UFUNCTION()
-        void DecreaseLife();
+    void IncreaseLife();
+    void DecreaseLife();
+    void SetLifePanel();
 };
 

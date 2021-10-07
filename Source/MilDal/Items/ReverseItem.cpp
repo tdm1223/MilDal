@@ -9,26 +9,24 @@ AReverseItem::AReverseItem()
 
     StaticMeshComp = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("StaticMesh"));
 
-    static ConstructorHelpers::FObjectFinder<UStaticMesh> ReverseModel(TEXT("StaticMesh'/Game/StarterContent/Props/MaterialSphere.MaterialSphere'"));
-
+    static ConstructorHelpers::FObjectFinder<UStaticMesh> ReverseModel(TEXT("StaticMesh'/Game/Prop/Meshes/Reverse.Reverse'"));
     if (ReverseModel.Succeeded())
     {
         StaticMeshComp->SetStaticMesh(ReverseModel.Object);
-        StaticMeshComp->SetWorldScale3D(FVector(0.5f, 0.5f, 0.5f));
+        StaticMeshComp->SetWorldScale3D(FVector(2.5f, 2.5f, 2.5f));
         StaticMeshComp->SetRelativeLocation(FVector(0.0f, 0.0f, 0.0f));
     }
     RootComponent = StaticMeshComp;
 
     CapsuleComponent = CreateDefaultSubobject<UCapsuleComponent>(TEXT("CapsuleComponent"));
-    CapsuleComponent->SetCapsuleHalfHeight(60.0f);
-    CapsuleComponent->SetCapsuleRadius(60.0f);
+    CapsuleComponent->SetCapsuleRadius(15.0f);
+    CapsuleComponent->SetCapsuleHalfHeight(15.0f);
     CapsuleComponent->SetRelativeLocation(FVector(0.0f, 0.0f, 0.0f));
     CapsuleComponent->SetupAttachment(RootComponent);
 
     PitchValue = 0.f;
     YawValue = 1.f;
     RollValue = 0.f;
-
 }
 
 void AReverseItem::BeginPlay()

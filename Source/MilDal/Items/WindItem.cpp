@@ -8,19 +8,19 @@ AWindItem::AWindItem()
     PrimaryActorTick.bCanEverTick = true;
     StaticMeshComp = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("StaticMesh"));
 
-    static ConstructorHelpers::FObjectFinder<UStaticMesh> WindModel(TEXT("StaticMesh'/Game/StarterContent/Props/MaterialSphere.MaterialSphere'"));
+    static ConstructorHelpers::FObjectFinder<UStaticMesh> WindModel(TEXT("StaticMesh'/Game/Prop/Meshes/Wind.Wind'"));
 
     if (WindModel.Succeeded())
     {
         StaticMeshComp->SetStaticMesh(WindModel.Object);
-        StaticMeshComp->SetWorldScale3D(FVector(0.5f, 0.5f, 0.5f));
+        StaticMeshComp->SetWorldScale3D(FVector(1.0f, 1.0f, 1.0f));
         StaticMeshComp->SetRelativeLocation(FVector(0.0f, 0.0f, 0.0f));
     }
     RootComponent = StaticMeshComp;
 
     CapsuleComponent = CreateDefaultSubobject<UCapsuleComponent>(TEXT("CapsuleComponent"));
-    CapsuleComponent->SetCapsuleHalfHeight(60.0f);
-    CapsuleComponent->SetCapsuleRadius(60.0f);
+    CapsuleComponent->SetCapsuleHalfHeight(30.0f);
+    CapsuleComponent->SetCapsuleRadius(30.0f);
     CapsuleComponent->SetRelativeLocation(FVector(0.0f, 0.0f, 0.0f));
     CapsuleComponent->SetupAttachment(RootComponent);
 

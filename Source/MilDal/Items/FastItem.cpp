@@ -14,14 +14,14 @@ AFastItem::AFastItem()
     if (TileModel.Succeeded())
     {
         StaticMeshComp->SetStaticMesh(TileModel.Object);
-        StaticMeshComp->SetWorldScale3D(FVector(0.2f, 0.2f, 0.2f));
+        StaticMeshComp->SetWorldScale3D(FVector(2.0f, 2.0f, 2.0f));
         StaticMeshComp->SetRelativeLocation(FVector(0.0f, 0.0f, 0.0f));
     }
     RootComponent = StaticMeshComp;
 
     CapsuleComponent = CreateDefaultSubobject<UCapsuleComponent>(TEXT("CapsuleComponent"));
-    CapsuleComponent->SetCapsuleHalfHeight(90.0f);
-    CapsuleComponent->SetCapsuleRadius(90.0f);
+    CapsuleComponent->SetCapsuleRadius(15.0f);
+    CapsuleComponent->SetCapsuleHalfHeight(15.0f);
     CapsuleComponent->SetRelativeLocation(FVector(0.0f, 0.0f, 0.0f));
     CapsuleComponent->SetupAttachment(RootComponent);
 
