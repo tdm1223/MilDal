@@ -9,21 +9,30 @@ UMilDalGameManager::UMilDalGameManager()
 {
     FindClassType = AMainCamera::StaticClass();
 
-    TArray<AActor*> actors;
-    UGameplayStatics::GetAllActorsOfClass(GetWorld(), FindClassType, actors);
-
-    for (auto actor : actors)
-    {
-        UE_LOG(LogTemp, Log, TEXT("%s"), *actor->GetName());
-        MainCamera = Cast<AMainCamera>(actor);
-    }
+    SetMainCamera();
 }
 
 FVector UMilDalGameManager::GetCameraInfo()
 {
-    UE_LOG(LogTemp, Log, TEXT("GetCameraInfo : %f %f %f"), MainCamera->GetActorLocation().X, MainCamera->GetActorLocation().Y, MainCamera->GetActorLocation().Z);
+    if (MainCamera != nullptr)
+    {
+        return MainCamera->GetActorLocation();
+    }
+    else
+    {
+        SetMainCamera();
+        return MainCamera->GetActorLocation();
+    }
+}
 
-    return MainCamera->GetActorLocation();
+void UMilDalGameManager::SetMainCamera()
+{
+    TArray<AActor*> actors;
+    UGameplayStatics::GetAllActorsOfClass(GetWorld(), FindClassType, actors);
+    for (auto actor : actors)
+    {
+        MainCamera = Cast<AMainCamera>(actor);
+    }
 }
 
 void UMilDalGameManager::SetReverse(bool bReverse, PlayerType InEatPlayer)

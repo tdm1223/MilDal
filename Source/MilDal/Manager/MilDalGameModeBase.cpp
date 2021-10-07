@@ -24,6 +24,12 @@ AMilDalGameModeBase::AMilDalGameModeBase()
     }
 
     PlayerControllerClass = AMilDalPlayerController::StaticClass();
+
+    ItemArray.Add(AFastItem::StaticClass());
+    ItemArray.Add(AReverseItem::StaticClass());
+    ItemArray.Add(AInfiniteJumpItem::StaticClass());
+    ItemArray.Add(ALifeItem::StaticClass());
+    ItemArray.Add(AWindItem::StaticClass());
 }
 
 void AMilDalGameModeBase::BeginPlay()
@@ -31,11 +37,11 @@ void AMilDalGameModeBase::BeginPlay()
     Super::BeginPlay();
     SpawnHelicopter();
 
-    ItemArray.Add(AFastItem::StaticClass());
-    ItemArray.Add(AReverseItem::StaticClass());
-    ItemArray.Add(AInfiniteJumpItem::StaticClass());
-    ItemArray.Add(ALifeItem::StaticClass());
-    ItemArray.Add(AWindItem::StaticClass());
+    //ItemArray.Add(AFastItem::StaticClass());
+    //ItemArray.Add(AReverseItem::StaticClass());
+    //ItemArray.Add(AInfiniteJumpItem::StaticClass());
+    //ItemArray.Add(ALifeItem::StaticClass());
+    //ItemArray.Add(AWindItem::StaticClass());
 
     SpawnItem();
 }

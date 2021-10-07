@@ -27,6 +27,8 @@ public:
     UMilDalGameManager();
     FVector GetCameraInfo();
 
+    void SetMainCamera();
+
     void SetReverse(bool bReverse, PlayerType InEatPlayer);
     void SetInfiniteJump(bool bReverse, PlayerType InEatPlayer);
     void SetFast(bool bFast, PlayerType InEatPlayer);
