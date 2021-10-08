@@ -10,12 +10,12 @@ class MILDAL_API UMainMenu : public UUserWidget
     GENERATED_BODY()
 
 public:
-    //UPROPERTY(VisibleAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
-    //    class UButton* Start;
+    UPROPERTY(VisibleAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
+        class UButton* Start;
     //UPROPERTY(VisibleAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
     //    class UButton* Option;
-    //UPROPERTY(VisibleAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
-    //    class UButton* Quit;
+    UPROPERTY(VisibleAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
+        class UButton* Quit;
     virtual void NativeConstruct();
 
     UFUNCTION()
