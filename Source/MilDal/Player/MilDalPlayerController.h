@@ -17,7 +17,19 @@ public:
     UPROPERTY()
         class UMainWidget* MainWidget;
 
+    UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
+        TSubclassOf<class UPauseMenu> PauseWidgetClass;
+
+    UPROPERTY()
+        class UPauseMenu* PauseWidget;
+
 public:
     virtual void BeginPlay();
+    virtual void SetupInputComponent() override;
     UMainWidget* GetMainWidget() const;
+    void ChangeInputMode(bool bGameMode);
+    void OnGamePause();
+
+    FInputModeGameOnly GameInputMode;
+    FInputModeUIOnly UIInputMode;
 };
