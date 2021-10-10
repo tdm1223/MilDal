@@ -12,7 +12,7 @@ public:
     AMilDalPlayerController();
 
     UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
-        TSubclassOf<class UMainWidget> HudWidgetClass;
+        TSubclassOf<class UMainWidget> MainWidgetClass;
 
     UPROPERTY()
         class UMainWidget* MainWidget;

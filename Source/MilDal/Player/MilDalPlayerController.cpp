@@ -7,7 +7,7 @@ AMilDalPlayerController::AMilDalPlayerController()
     static ConstructorHelpers::FClassFinder<UMainWidget> MainHUD(TEXT("WidgetBlueprint'/Game/Blueprints/BP_MainWidget.BP_MainWidget_C'"));
     if (MainHUD.Succeeded())
     {
-        HudWidgetClass = MainHUD.Class;
+        MainWidgetClass = MainHUD.Class;
     }
 
     static ConstructorHelpers::FClassFinder<UPauseMenu> PauseHUD(TEXT("WidgetBlueprint'/Game/Blueprints/BP_PauseMenu.BP_PauseMenu_C'"));
@@ -22,7 +22,7 @@ void AMilDalPlayerController::BeginPlay()
     Super::BeginPlay();
     ChangeInputMode(true);
 
-    MainWidget = CreateWidget<UMainWidget>(this, HudWidgetClass);
+    MainWidget = CreateWidget<UMainWidget>(this, MainWidgetClass);
     MainWidget->AddToViewport(1);
 }
 

@@ -36,13 +36,6 @@ void AMilDalGameModeBase::BeginPlay()
 {
     Super::BeginPlay();
     SpawnHelicopter();
-
-    //ItemArray.Add(AFastItem::StaticClass());
-    //ItemArray.Add(AReverseItem::StaticClass());
-    //ItemArray.Add(AInfiniteJumpItem::StaticClass());
-    //ItemArray.Add(ALifeItem::StaticClass());
-    //ItemArray.Add(AWindItem::StaticClass());
-
     SpawnItem();
 }
 
@@ -73,7 +66,6 @@ void AMilDalGameModeBase::SpawnHelicopter()
     FTimerHandle WaitHandle;
 
     bool flag = FMath::RandBool();
-    UE_LOG(LogTemp, Log, TEXT("flag : %d"), flag);
     FTransform SpawnLocation;
 
     FVector AdditionalVector = FVector(1000.0f, 1000.0f, -380.0f);
