@@ -4,6 +4,7 @@
 #include "GameFramework/Actor.h"
 #include "Components/BoxComponent.h"
 #include "Camera/CameraComponent.h"
+#include "MilDal/Manager/MilDalGameInstance.h"
 
 AMainCamera::AMainCamera()
 {
@@ -30,6 +31,8 @@ void AMainCamera::BeginPlay()
         PlayerController->SetViewTargetWithBlend(this);
     }
     CurrentLocation = this->GetActorLocation();
+
+    MoveSpeed = 0;
 }
 
 void AMainCamera::Tick(float DeltaTime)
@@ -37,4 +40,9 @@ void AMainCamera::Tick(float DeltaTime)
     Super::Tick(DeltaTime);
     CurrentLocation.X += MoveSpeed * DeltaTime;
     SetActorLocation(CurrentLocation);
+
+    if (MilDalGameManager().GetPlayerOneIsReady() && MilDalGameManager().GetPlayerTwoIsReady())
+    {
+        MoveSpeed = 20.0f;
+    }
 }

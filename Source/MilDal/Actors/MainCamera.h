@@ -17,9 +17,7 @@ protected:
 public:
     virtual void Tick(float DeltaTime) override;
 
-    // ToDo : 적절한 스피드를 찾은 후에는 내부 변수로 넣어야 한다.
-    UPROPERTY(EditAnywhere)
-        float MoveSpeed;
+    float MoveSpeed;
 
     UPROPERTY(VisibleAnywhere)
         class UBoxComponent* BoxComponent;

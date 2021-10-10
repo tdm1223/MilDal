@@ -32,6 +32,8 @@ public:
     void RespawnPlayer();
     void IncreaseLife();
 
+    bool CheckMovable();
+
     UPROPERTY(EditAnywhere)
         TSubclassOf<class AMainCamera> MainCamera;
 
@@ -68,6 +70,14 @@ public:
 
     UPROPERTY(VisibleAnywhere)
         class UCharacterStatComponent* characterStatComponent;
+
+    // 2P의 Ready check는 따로 해준다.
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
+        bool bPlayerTwoReady;
+
+    UPROPERTY(EditAnywhere, BlueprintReadOnly)
+        bool bPlayerOneReady;
+
 
 private:
     float RespawnDelay = 2.0f;

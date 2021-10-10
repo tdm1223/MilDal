@@ -67,7 +67,6 @@ void AMilDalPlayer::BeginPlay()
     NameText->SetText(FText::FromString(characterStatComponent->GetName()));
 }
 
-// Called every frame
 void AMilDalPlayer::Tick(float DeltaTime)
 {
     Super::Tick(DeltaTime);
@@ -80,6 +79,11 @@ void AMilDalPlayer::Tick(float DeltaTime)
     if (bIsFast)
     {
         AddMovementInput(FVector(1.0f, 0.0f, 0.0f), 5.0f);
+    }
+
+    if (bPlayerTwoReady)
+    {
+        MilDalGameManager().SetPlayerTwoIsReady(true);
     }
 }
 
@@ -95,6 +99,11 @@ void AMilDalPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputCompon
 
 void AMilDalPlayer::MoveForward(float AxisValue)
 {
+    if (!CheckMovable())
+    {
+        return;
+    }
+
     FVector Direction = FRotationMatrix(Controller->GetControlRotation()).GetScaledAxis(EAxis::X);
     if (!bIsReverse)
     {
@@ -109,6 +118,11 @@ void AMilDalPlayer::MoveForward(float AxisValue)
 
 void AMilDalPlayer::MoveRight(float AxisValue)
 {
+    if (!CheckMovable())
+    {
+        return;
+    }
+
     FVector Direction = FRotationMatrix(Controller->GetControlRotation()).GetScaledAxis(EAxis::Y);
     if (!bIsReverse)
     {
@@ -123,6 +137,12 @@ void AMilDalPlayer::MoveRight(float AxisValue)
 
 void AMilDalPlayer::StartJump()
 {
+    if (MilDalGameManager().GetPlayerOneIsReady() == false)
+    {
+        MilDalGameManager().SetPlayerOneIsReady(true);
+        bPlayerOneReady = true;
+    }
+
     bPressedJump = true;
 }
 
@@ -135,7 +155,6 @@ void AMilDalPlayer::OnOverlapBegin(class UPrimitiveComponent* OverlappedComp, cl
 {
     if (OtherActor->ActorHasTag("Camera"))
     {
-        UE_LOG(LogTemp, Log, TEXT("BACK!! %s"), *OtherActor->GetName());
         SetPlayerHide(true);
         RespawnPlayer();
         SetPlayerHide(false);
@@ -171,11 +190,20 @@ void AMilDalPlayer::RespawnPlayer()
     }
 
     characterStatComponent->DecreaseLife();
-    UE_LOG(LogTemp, Log, TEXT("%s's Life : %d"), *this->GetName(), characterStatComponent->Life);
     SetActorLocation(respawnLocation);
 }
 
 void AMilDalPlayer::IncreaseLife()
 {
     characterStatComponent->IncreaseLife();
+}
+
+bool AMilDalPlayer::CheckMovable()
+{
+    if (MilDalGameManager().GetPlayerOneIsReady()
+        && MilDalGameManager().GetPlayerTwoIsReady())
+    {
+        return true;
+    }
+    return false;
 }

@@ -51,4 +51,27 @@ public:
 
     UPROPERTY()
         AMilDalPlayerController* controller;
+
+    bool GetPlayerOneIsReady()
+    {
+        return bPlayerOneIsReady;
+    }
+
+    void SetPlayerOneIsReady(bool InIsReady)
+    {
+        bPlayerOneIsReady = InIsReady;
+    }
+
+    bool GetPlayerTwoIsReady()
+    {
+        return bPlayerTwoIsReady;
+    }
+
+    void SetPlayerTwoIsReady(bool InIsReady)
+    {
+        bPlayerTwoIsReady = InIsReady;
+    }
+private:
+    bool bPlayerOneIsReady;
+    bool bPlayerTwoIsReady;
 };

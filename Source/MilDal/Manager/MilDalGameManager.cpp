@@ -8,7 +8,8 @@
 UMilDalGameManager::UMilDalGameManager()
 {
     FindClassType = AMainCamera::StaticClass();
-
+    bPlayerOneIsReady = false;
+    bPlayerTwoIsReady = false;
     SetMainCamera();
 }
 
