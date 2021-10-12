@@ -4,6 +4,7 @@
 #include "MilDal/Manager/MilDalGameInstance.h"
 #include "MilDal/Player/MilDalPlayerController.h"
 #include "MilDal/Player/MilDalPlayer.h"
+#include "MilDal/Actors/Tile.h"
 
 // Item
 #include "MilDal/Items/ReverseItem.h"
@@ -35,6 +36,25 @@ void AMilDalGameModeBase::AddItem()
     ItemArray.Add(AInfiniteJumpItem::StaticClass());
     ItemArray.Add(ALifeItem::StaticClass());
     ItemArray.Add(AWindItem::StaticClass());
+
+    ConstructorHelpers::FClassFinder<ATile> TileTypeOne(TEXT("Blueprint'/Game/Blueprints/TileTypeOne.TileTypeOne_C'"));
+    if (TileTypeOne.Succeeded())
+    {
+        TileArray.Add(TileTypeOne.Class);
+    }
+
+    ConstructorHelpers::FClassFinder<ATile> TileTypeTwo(TEXT("Blueprint'/Game/Blueprints/TileTypeTwo.TileTypeTwo_C'"));
+    if (TileTypeTwo.Succeeded())
+    {
+        TileArray.Add(TileTypeTwo.Class);
+    }
+
+    ConstructorHelpers::FClassFinder<ATile> TileTypeThree(TEXT("Blueprint'/Game/Blueprints/TileTypeThree.TileTypeThree_C'"));
+    if (TileTypeThree.Succeeded())
+    {
+        TileArray.Add(TileTypeThree.Class);
+    }
+    TileArray.Add(ATile::StaticClass());
 }
 
 void AMilDalGameModeBase::BeginPlay()
@@ -100,4 +120,12 @@ void AMilDalGameModeBase::ClearTimer()
 {
     GetWorld()->GetTimerManager().ClearTimer(SpawnHelicopterHandle);
     GetWorld()->GetTimerManager().ClearTimer(SpawnItemHandle);
+}
+
+void AMilDalGameModeBase::CreateMap(FVector currentLocation)
+{
+    currentLocation.X += 2400;
+
+    int randomIndex = FMath::RandHelper(TileArray.Num());
+    GetWorld()->SpawnActor<ATile>(TileArray[randomIndex], currentLocation, FRotator::ZeroRotator);
 }

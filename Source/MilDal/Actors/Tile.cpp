@@ -1,5 +1,7 @@
-#include "Tile.h"
+#include "MilDal/Actors/Tile.h"
 #include "GameFramework/Actor.h"
+#include "Kismet/GameplayStatics.h"
+#include "MilDal/Manager/MilDalGameModeBase.h"
 
 ATile::ATile()
 {
@@ -18,26 +20,23 @@ ATile::ATile()
 
 }
 
-// Called when the game starts or when spawned
 void ATile::BeginPlay()
 {
     Super::BeginPlay();
     StaticMeshComp->OnComponentBeginOverlap.AddDynamic(this, &ATile::OnOverlapBegin);
+    mode = Cast<AMilDalGameModeBase>(UGameplayStatics::GetGameMode(GetWorld()));
+
 }
 
-// Called every frame
 void ATile::Tick(float DeltaTime)
 {
     Super::Tick(DeltaTime);
-
 }
 
 void ATile::OnOverlapBegin(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
     if (OtherActor->ActorHasTag("Camera"))
     {
-        FVector location = GetActorLocation();
-        location.X += 2400;
-        GetWorld()->SpawnActor<ATile>(ATile::StaticClass(), location, FRotator::ZeroRotator);
+        mode->CreateMap(GetActorLocation());
     }
 }

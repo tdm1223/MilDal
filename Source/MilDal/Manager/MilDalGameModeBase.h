@@ -19,6 +19,7 @@ public:
 
     void ClearTimer();
 
+    void CreateMap(FVector currentLocation);
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
         class AMilDalPlayer* PlyaerOne;
 
@@ -26,6 +27,8 @@ public:
         class AMilDalPlayer* PlayerTwo;
 
     TArray<TSubclassOf<class AActor>> ItemArray;
+    TArray<TSubclassOf<class ATile>> TileArray;
+
     FTimerHandle SpawnHelicopterHandle;
     FTimerHandle SpawnItemHandle;
 };
