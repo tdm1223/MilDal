@@ -10,11 +10,12 @@ class MILDAL_API AUIPlayerController : public APlayerController
     GENERATED_BODY()
 
 public:
+    AUIPlayerController();
     virtual void BeginPlay() override;
 
     UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
-        TSubclassOf<class UUserWidget> UIWidgetClass;
+        TSubclassOf<class UTitleMenu> UITitleClass;
 
     UPROPERTY()
-        class UUserWidget* UIWidgetInstance;
+        class UTitleMenu* UITitleInstance;
 };

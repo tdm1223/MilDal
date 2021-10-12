@@ -2,18 +2,18 @@
 
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
-#include "MainMenu.generated.h"
+#include "TitleMenu.generated.h"
 
 UCLASS()
-class MILDAL_API UMainMenu : public UUserWidget
+class MILDAL_API UTitleMenu : public UUserWidget
 {
     GENERATED_BODY()
 
 public:
     UPROPERTY(VisibleAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
         class UButton* Start;
-    //UPROPERTY(VisibleAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
-    //    class UButton* Option;
+    UPROPERTY(VisibleAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
+        class UButton* Option;
     UPROPERTY(VisibleAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
         class UButton* Quit;
     virtual void NativeConstruct();
