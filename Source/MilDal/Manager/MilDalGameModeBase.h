@@ -11,10 +11,13 @@ class MILDAL_API AMilDalGameModeBase : public AGameModeBase
 
 public:
     AMilDalGameModeBase();
+    void AddItem();
     virtual void BeginPlay();
     void SpawnItem();
     void SpawnHelicopter();
     virtual void Tick(float DeltaTime);
+
+    void ClearTimer();
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
         class AMilDalPlayer* PlyaerOne;
@@ -22,6 +25,7 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
         class AMilDalPlayer* PlayerTwo;
 
-    UPROPERTY(EditAnywhere)
-        TArray<TSubclassOf<class AActor>> ItemArray;
+    TArray<TSubclassOf<class AActor>> ItemArray;
+    FTimerHandle SpawnHelicopterHandle;
+    FTimerHandle SpawnItemHandle;
 };

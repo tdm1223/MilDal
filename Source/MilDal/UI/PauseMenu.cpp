@@ -1,5 +1,7 @@
 #include "MilDal/UI/PauseMenu.h"
 #include "MilDal/Player/MilDalPlayerController.h"
+#include "MilDal/Manager/MilDalGameInstance.h"
+#include "MilDal/Manager/MilDalGameModeBase.h"
 
 #include "Components/Button.h"
 
@@ -38,7 +40,12 @@ void UPauseMenu::OnResume()
 
 void UPauseMenu::OnTitle()
 {
-    UGameplayStatics::OpenLevel(this, TEXT("Title"));
+    mode = Cast<AMilDalGameModeBase>(UGameplayStatics::GetGameMode(GetWorld()));
+    mode->ClearTimer();
+
+    MilDalGameManager().SetPlayerOneIsReady(false);
+    MilDalGameManager().SetPlayerTwoIsReady(false);
+    UGameplayStatics::OpenLevel(this, TEXT("Title"), false, TEXT("?Game=/Script/MilDal.TitleGameMode"));
 }
 
 void UPauseMenu::OnQuit()

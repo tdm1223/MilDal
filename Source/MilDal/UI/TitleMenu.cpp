@@ -26,7 +26,7 @@ void UTitleMenu::NativeConstruct()
 
 void UTitleMenu::OnStart()
 {
-    UGameplayStatics::OpenLevel(this, TEXT("Main"));
+    UGameplayStatics::OpenLevel(this, TEXT("Main"), false, TEXT("?Game=/Script/MilDal.MilDalGameModeBase"));
 }
 
 void UTitleMenu::OnOption()

@@ -18,6 +18,9 @@ public:
         class UButton* Quit;
     virtual void NativeConstruct();
 
+    UPROPERTY()
+        class AMilDalGameModeBase* mode;
+
     UFUNCTION()
         void OnResume();
 

@@ -71,7 +71,19 @@ public:
     {
         bPlayerTwoIsReady = InIsReady;
     }
+
+    bool GetIsGameEnd()
+    {
+        return bIsGameEnd;
+    }
+
+    void SetIsGameEnd(bool InIsEnd)
+    {
+        bIsGameEnd = InIsEnd;
+    }
+
 private:
     bool bPlayerOneIsReady;
     bool bPlayerTwoIsReady;
+    bool bIsGameEnd;
 };

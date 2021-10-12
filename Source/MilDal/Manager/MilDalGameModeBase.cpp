@@ -16,7 +16,7 @@ AMilDalGameModeBase::AMilDalGameModeBase()
 {
     PrimaryActorTick.bCanEverTick = false;
 
-    ConstructorHelpers::FClassFinder<APawn> player(*FString(TEXT("Blueprint'/Game/Blueprints/BP_PlayerOne.BP_PlayerOne_C'")));
+    ConstructorHelpers::FClassFinder<APawn> player(TEXT("Blueprint'/Game/Blueprints/BP_PlayerOne.BP_PlayerOne_C'"));
 
     if (player.Succeeded())
     {
@@ -25,6 +25,11 @@ AMilDalGameModeBase::AMilDalGameModeBase()
 
     PlayerControllerClass = AMilDalPlayerController::StaticClass();
 
+    AddItem();
+}
+
+void AMilDalGameModeBase::AddItem()
+{
     ItemArray.Add(AFastItem::StaticClass());
     ItemArray.Add(AReverseItem::StaticClass());
     ItemArray.Add(AInfiniteJumpItem::StaticClass());
@@ -41,8 +46,6 @@ void AMilDalGameModeBase::BeginPlay()
 
 void AMilDalGameModeBase::SpawnItem()
 {
-    FTimerHandle WaitHandle;
-
     FTransform SpawnLocation;
 
     float randomXPosition = FMath::RandRange(400, 1200);
@@ -54,7 +57,7 @@ void AMilDalGameModeBase::SpawnItem()
     GetWorld()->SpawnActor<AActor>(ItemArray[randomIndex], SpawnLocation);
 
     float randomTime = FMath::RandHelper(1) + 3;
-    GetWorld()->GetTimerManager().SetTimer(WaitHandle, FTimerDelegate::CreateLambda([&]()
+    GetWorld()->GetTimerManager().SetTimer(SpawnItemHandle, FTimerDelegate::CreateLambda([&]()
         {
             SpawnItem();
         }), randomTime, false);
@@ -63,8 +66,10 @@ void AMilDalGameModeBase::SpawnItem()
 
 void AMilDalGameModeBase::SpawnHelicopter()
 {
-    FTimerHandle WaitHandle;
-
+    if (!GetWorld())
+    {
+        return;
+    }
     bool flag = FMath::RandBool();
     FTransform SpawnLocation;
 
@@ -79,7 +84,7 @@ void AMilDalGameModeBase::SpawnHelicopter()
     GetWorld()->SpawnActor<AHelicopter>(AHelicopter::StaticClass(), SpawnLocation);
 
     float randomTime = FMath::RandHelper(5) + 3;
-    GetWorld()->GetTimerManager().SetTimer(WaitHandle, FTimerDelegate::CreateLambda([&]()
+    GetWorld()->GetTimerManager().SetTimer(SpawnHelicopterHandle, FTimerDelegate::CreateLambda([&]()
         {
             SpawnHelicopter();
         }), randomTime, false);
@@ -88,4 +93,11 @@ void AMilDalGameModeBase::SpawnHelicopter()
 void AMilDalGameModeBase::Tick(float DeltaTime)
 {
     Super::Tick(DeltaTime);
+
+}
+
+void AMilDalGameModeBase::ClearTimer()
+{
+    GetWorld()->GetTimerManager().ClearTimer(SpawnHelicopterHandle);
+    GetWorld()->GetTimerManager().ClearTimer(SpawnItemHandle);
 }

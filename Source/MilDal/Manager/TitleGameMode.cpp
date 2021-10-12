@@ -3,7 +3,7 @@
 
 ATitleGameMode::ATitleGameMode()
 {
-    ConstructorHelpers::FClassFinder<AUIPlayerController> controller(*FString(TEXT("Class'/Script/MilDal.UIPlayerController'")));
+    ConstructorHelpers::FClassFinder<AUIPlayerController> controller(TEXT("Class'/Script/MilDal.UIPlayerController'"));
 
     DefaultPawnClass = APawn::StaticClass();
     PlayerControllerClass = controller.Class;
