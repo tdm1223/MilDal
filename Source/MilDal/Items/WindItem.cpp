@@ -17,6 +17,7 @@ AWindItem::AWindItem()
         StaticMeshComp->SetRelativeLocation(FVector(0.0f, 0.0f, 0.0f));
     }
     RootComponent = StaticMeshComp;
+    StaticMeshComp->CastShadow = false;
 
     CapsuleComponent = CreateDefaultSubobject<UCapsuleComponent>(TEXT("CapsuleComponent"));
     CapsuleComponent->SetCapsuleHalfHeight(30.0f);

@@ -16,6 +16,8 @@ AWindObstacle::AWindObstacle()
 
     LeftObstacle->SetupAttachment(RootComponent);
     RightObstacle->SetupAttachment(RootComponent);
+    LeftObstacle->CastShadow = false;
+    RightObstacle->CastShadow = false;
 
     if (WindModel.Succeeded())
     {

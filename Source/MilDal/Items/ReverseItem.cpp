@@ -17,6 +17,7 @@ AReverseItem::AReverseItem()
         StaticMeshComp->SetRelativeLocation(FVector(0.0f, 0.0f, 0.0f));
     }
     RootComponent = StaticMeshComp;
+    StaticMeshComp->CastShadow = false;
 
     CapsuleComponent = CreateDefaultSubobject<UCapsuleComponent>(TEXT("CapsuleComponent"));
     CapsuleComponent->SetCapsuleRadius(15.0f);

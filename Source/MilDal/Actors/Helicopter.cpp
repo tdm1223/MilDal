@@ -30,6 +30,9 @@ AHelicopter::AHelicopter()
     Body->SetupAttachment(RootComponent);
     Motor->SetupAttachment(RootComponent);
 
+    Body->CastShadow = false;
+    Motor->CastShadow = false;
+
     YawValue = 15.f;
 }
 

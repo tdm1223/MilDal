@@ -31,6 +31,7 @@ AMilDalPlayer::AMilDalPlayer()
     {
         GetMesh()->SetAnimInstanceClass(PlayerAnimation.Class);
     }
+    GetMesh()->CastShadow = false;
 
     // 이동 방향과 바라보는 방향을 맞춰줌
     GetCharacterMovement()->bOrientRotationToMovement = true;
