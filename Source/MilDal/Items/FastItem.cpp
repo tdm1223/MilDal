@@ -29,6 +29,16 @@ AFastItem::AFastItem()
     PitchValue = 0.f;
     YawValue = 1.f;
     RollValue = 0.f;
+
+    PlaneComp = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("PlaneMesh"));
+    static ConstructorHelpers::FObjectFinder<UStaticMesh> PlaneModel(TEXT("StaticMesh'/Engine/BasicShapes/RedPlane.RedPlane'"));
+    if (PlaneModel.Succeeded())
+    {
+        PlaneComp->SetStaticMesh(PlaneModel.Object);
+        PlaneComp->SetWorldScale3D(FVector(0.2f, 0.2f, 0.2f));
+        PlaneComp->SetRelativeLocation(FVector(0.0f, 0.0f, -58.0f));
+    }
+    PlaneComp->SetupAttachment(RootComponent);
 }
 
 void AFastItem::BeginPlay()

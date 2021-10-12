@@ -26,6 +26,9 @@ public:
     UPROPERTY(VisibleAnywhere)
         class UCapsuleComponent* CapsuleComponent;
 
+    UPROPERTY(VisibleAnywhere)
+        class UStaticMeshComponent* PlaneComp;
+
 private:
     float PitchValue;
     float YawValue;

@@ -29,6 +29,15 @@ AWindItem::AWindItem()
     YawValue = 1.f;
     RollValue = 0.f;
 
+    PlaneComp = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("PlaneMesh"));
+    static ConstructorHelpers::FObjectFinder<UStaticMesh> PlaneModel(TEXT("StaticMesh'/Engine/BasicShapes/RedPlane.RedPlane'"));
+    if (PlaneModel.Succeeded())
+    {
+        PlaneComp->SetStaticMesh(PlaneModel.Object);
+        PlaneComp->SetWorldScale3D(FVector(0.5f, 0.5f, 0.5f));
+        PlaneComp->SetRelativeLocation(FVector(0.0f, 0.0f, -115.0f));
+    }
+    PlaneComp->SetupAttachment(RootComponent);
 }
 
 void AWindItem::BeginPlay()

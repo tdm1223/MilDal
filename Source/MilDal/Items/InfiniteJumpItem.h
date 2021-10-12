@@ -26,6 +26,8 @@ public:
     UPROPERTY(VisibleAnywhere)
         class UCapsuleComponent* CapsuleComponent;
 
+    UPROPERTY(VisibleAnywhere)
+        class UStaticMeshComponent* PlaneComp;
 private:
     const float ItemTime = 3.0f;
     float PitchValue;

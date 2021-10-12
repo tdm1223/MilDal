@@ -9,7 +9,6 @@ ALifeItem::ALifeItem()
     PrimaryActorTick.bCanEverTick = true;
 
     StaticMeshComp = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("StaticMesh"));
-
     static ConstructorHelpers::FObjectFinder<UStaticMesh> LifeModel(TEXT("StaticMesh'/Game/Prop/Meshes/Life.Life'"));
 
     if (LifeModel.Succeeded())
@@ -30,9 +29,18 @@ ALifeItem::ALifeItem()
     PitchValue = 0.f;
     YawValue = 1.f;
     RollValue = 0.f;
+
+    PlaneComp = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("PlaneMesh"));
+    static ConstructorHelpers::FObjectFinder<UStaticMesh> PlaneModel(TEXT("StaticMesh'/Engine/BasicShapes/RedPlane.RedPlane'"));
+    if (PlaneModel.Succeeded())
+    {
+        PlaneComp->SetStaticMesh(PlaneModel.Object);
+        PlaneComp->SetWorldScale3D(FVector(1.0f, 1.0f, 1.0f));
+        PlaneComp->SetRelativeLocation(FVector(0.0f, 0.0f, -235.0f));
+    }
+    PlaneComp->SetupAttachment(RootComponent);
 }
 
-// Called when the game starts or when spawned
 void ALifeItem::BeginPlay()
 {
     Super::BeginPlay();
