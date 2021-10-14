@@ -28,6 +28,9 @@ public:
     UFUNCTION()
         void OnOverlapBegin(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 
+    UFUNCTION()
+        void OnPushBegin(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
+
     void SetPlayerHide(bool isHide);
     void RespawnPlayer();
     void IncreaseLife();
@@ -78,7 +81,8 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadOnly)
         bool bPlayerOneReady;
 
-
+    UPROPERTY(EditAnywhere, BlueprintReadOnly)
+        class UCapsuleComponent* PushCollision;
 private:
     float RespawnDelay = 2.0f;
     FVector AdditionalVector = FVector(400.0f, 0.0f, -100.0f);

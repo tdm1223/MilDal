@@ -47,6 +47,11 @@ AMilDalPlayer::AMilDalPlayer()
     NameText->SetupAttachment(RootComponent);
 
     this->characterStatComponent = CreateDefaultSubobject<UCharacterStatComponent>(TEXT("PlayerStat"));
+
+    PushCollision = CreateDefaultSubobject<UCapsuleComponent>(TEXT("PushCollision"));
+    PushCollision->SetCapsuleHalfHeight(30.0f);
+    PushCollision->SetCapsuleRadius(30.0f);
+    PushCollision->SetupAttachment(RootComponent);
 }
 
 void AMilDalPlayer::BeginPlay()
@@ -55,6 +60,7 @@ void AMilDalPlayer::BeginPlay()
 
     // 생성자가 아닌 BeginPlay에 추가해줘야 한다.
     GetCapsuleComponent()->OnComponentBeginOverlap.AddDynamic(this, &AMilDalPlayer::OnOverlapBegin);
+    PushCollision->OnComponentBeginOverlap.AddDynamic(this, &AMilDalPlayer::OnPushBegin);
 
     if (this->ActorHasTag("Player2P"))
     {
@@ -159,6 +165,29 @@ void AMilDalPlayer::OnOverlapBegin(class UPrimitiveComponent* OverlappedComp, cl
         SetPlayerHide(true);
         RespawnPlayer();
         SetPlayerHide(false);
+    }
+}
+
+void AMilDalPlayer::OnPushBegin(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+{
+    if (OtherActor->ActorHasTag("Player1P"))
+    {
+        if (GetCharacterMovement()->IsMovingOnGround())
+        {
+            FVector pushVector = (OtherActor->GetActorLocation() - this->GetActorLocation()) * 5.0f;
+            pushVector.Z = 80.0f;
+            Cast<AMilDalPlayer>(OtherActor)->GetCharacterMovement()->AddImpulse(pushVector, true);
+        }
+    }
+
+    if (OtherActor->ActorHasTag("Player2P"))
+    {
+        if (GetCharacterMovement()->IsMovingOnGround())
+        {
+            FVector pushVector = (OtherActor->GetActorLocation() - this->GetActorLocation()) * 5.0f;
+            pushVector.Z = 80.0f;
+            Cast<AMilDalPlayer>(OtherActor)->GetCharacterMovement()->AddImpulse(pushVector, true);
+        }
     }
 }
 
