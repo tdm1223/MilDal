@@ -170,6 +170,7 @@ void AMilDalPlayer::StartJump()
     }
 
     bPressedJump = true;
+    GetCharacterMovement()->GravityScale = 1.0f;
 }
 
 void AMilDalPlayer::EndJump()
