@@ -92,6 +92,25 @@ void AMilDalPlayer::Tick(float DeltaTime)
     {
         MilDalGameManager().SetPlayerTwoIsReady(true);
     }
+
+    if (GetCharacterMovement()->GravityScale == 0)
+    {
+        if (bSetBlink)
+        {
+            GetMesh()->SetVisibility(false);
+            bSetBlink = false;
+        }
+        else
+        {
+            GetMesh()->SetVisibility(true);
+            bSetBlink = true;
+        }
+    }
+    else
+    {
+        GetMesh()->SetVisibility(true);
+    }
+
 }
 
 void AMilDalPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
@@ -200,6 +219,8 @@ void AMilDalPlayer::SetPlayerHide(bool isHide)
 
 void AMilDalPlayer::RespawnPlayer()
 {
+    bSetBlink = true;
+
     // 현재 main 카메라의 위치를 기준으로 리스폰 위치를 정해야 한다.
     FVector cameraLocation = MilDalGameManager().GetCameraInfo();
 
@@ -211,6 +232,7 @@ void AMilDalPlayer::RespawnPlayer()
     FTimerHandle WaitHandle;
     GetWorld()->GetTimerManager().SetTimer(WaitHandle, FTimerDelegate::CreateLambda([&]()
         {
+            bSetBlink = false;
             GetCharacterMovement()->GravityScale = 1.0f;
         }), RespawnDelay, false);
 
@@ -220,7 +242,15 @@ void AMilDalPlayer::RespawnPlayer()
     }
 
     characterStatComponent->DecreaseLife();
-    SetActorLocation(respawnLocation);
+    if (characterStatComponent->GetLife() == 0)
+    {
+        UE_LOG(LogTemp, Log, TEXT("%s GameOver"), *characterStatComponent->GetName());
+        MilDalGameManager().NotifyGameOver();
+    }
+    else
+    {
+        SetActorLocation(respawnLocation);
+    }
 }
 
 void AMilDalPlayer::IncreaseLife()

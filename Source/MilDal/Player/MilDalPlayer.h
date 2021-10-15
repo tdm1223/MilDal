@@ -37,6 +37,8 @@ public:
 
     bool CheckMovable();
 
+    bool bSetBlink;
+
     UPROPERTY(EditAnywhere)
         TSubclassOf<class AMainCamera> MainCamera;
 
