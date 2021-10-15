@@ -129,3 +129,9 @@ void AMilDalGameModeBase::CreateMap(FVector currentLocation)
     int randomIndex = FMath::RandHelper(TileArray.Num());
     GetWorld()->SpawnActor<ATile>(TileArray[randomIndex], currentLocation, FRotator::ZeroRotator);
 }
+
+void AMilDalGameModeBase::Notify()
+{
+    UE_LOG(LogTemp, Log, TEXT("AMilDalGameModeBase Receive GameEnd"));
+    ClearTimer();
+}

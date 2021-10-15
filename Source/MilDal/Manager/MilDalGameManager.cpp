@@ -1,15 +1,18 @@
 #include "MilDalGameManager.h"
-#include "Kismet/GameplayStatics.h"
+#include "MilDal/Actors/MainCamera.h"
+#include "MilDal/Manager/MilDalGameModeBase.h"
 #include "MilDal/Player/MilDalPlayerController.h"
 #include "MilDal/Player/MilDalPlayer.h"
-#include "MilDal/Actors/MainCamera.h"
 #include "MilDal/UI/MainWidget.h"
+
+#include "Kismet/GameplayStatics.h"
 
 UMilDalGameManager::UMilDalGameManager()
 {
     FindClassType = AMainCamera::StaticClass();
     bPlayerOneIsReady = false;
     bPlayerTwoIsReady = false;
+    bIsGameEnd = false;
     SetMainCamera();
 }
 
@@ -34,6 +37,7 @@ void UMilDalGameManager::SetMainCamera()
     {
         MainCamera = Cast<AMainCamera>(actor);
     }
+    ObserverSet.Add(MainCamera);
 }
 
 void UMilDalGameManager::SetReverse(bool bReverse, PlayerType InEatPlayer)
@@ -88,9 +92,25 @@ void UMilDalGameManager::RegistController()
 {
     controller = Cast<AMilDalPlayerController>(UGameplayStatics::GetPlayerController(this, 0));
     MainWidget = controller->GetMainWidget();
+
+    mode = Cast<AMilDalGameModeBase>(UGameplayStatics::GetGameMode(GetWorld()));
+    ObserverSet.Add(mode);
 }
 
 UMainWidget* UMilDalGameManager::GetMainwWidget() const
 {
     return MainWidget;
+}
+
+void UMilDalGameManager::NotifyGameOver()
+{
+    bIsGameEnd = true;
+
+    for (auto Observer : ObserverSet)
+    {
+        if (Observer != nullptr)
+        {
+            Observer->Notify();
+        }
+    }
 }

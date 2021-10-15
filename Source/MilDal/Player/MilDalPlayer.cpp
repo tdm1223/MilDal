@@ -242,9 +242,10 @@ void AMilDalPlayer::RespawnPlayer()
     }
 
     characterStatComponent->DecreaseLife();
-    if (characterStatComponent->GetLife() == 0)
+    if (characterStatComponent->GetLife() == 0 && MilDalGameManager().GetIsGameEnd() == false)
     {
         UE_LOG(LogTemp, Log, TEXT("%s GameOver"), *characterStatComponent->GetName());
+        SetPlayerHide(true);
         MilDalGameManager().NotifyGameOver();
     }
     else

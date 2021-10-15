@@ -7,6 +7,7 @@ class AMilDalPlayer;
 class AMainCamera;
 class UMainWidget;
 class AMilDalPlayerController;
+class AMilDalGameModeBase;
 
 enum PlayerType
 {
@@ -38,6 +39,11 @@ public:
     UMainWidget* GetMainwWidget() const;
 
     UPROPERTY(EditAnywhere)
+        TArray<TScriptInterface<class IObserver>> ObserverSet;
+
+    void NotifyGameOver();
+
+    UPROPERTY(EditAnywhere)
         AMainCamera* MainCamera;
 
     UPROPERTY(VisibleAnywhere)
@@ -51,6 +57,9 @@ public:
 
     UPROPERTY()
         AMilDalPlayerController* controller;
+
+    UPROPERTY()
+        AMilDalGameModeBase* mode;
 
     bool GetPlayerOneIsReady()
     {

@@ -43,6 +43,15 @@ void AMainCamera::Tick(float DeltaTime)
 
     if (MilDalGameManager().GetPlayerOneIsReady() && MilDalGameManager().GetPlayerTwoIsReady())
     {
-        MoveSpeed = 20.0f;
+        if (!MilDalGameManager().GetIsGameEnd())
+        {
+            MoveSpeed = 20.0f;
+        }
     }
+}
+
+void AMainCamera::Notify()
+{
+    UE_LOG(LogTemp, Log, TEXT("Camera Receive GameEnd"));
+    MoveSpeed = 0.0f;
 }
