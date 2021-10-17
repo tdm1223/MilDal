@@ -5,6 +5,7 @@
 #include "MilDal/Player/MilDalPlayerController.h"
 #include "MilDal/Player/MilDalPlayer.h"
 #include "MilDal/Actors/Tile.h"
+#include "MilDal/MilDal.h"
 
 // Item
 #include "MilDal/Items/ReverseItem.h"
@@ -132,6 +133,6 @@ void AMilDalGameModeBase::CreateMap(FVector currentLocation)
 
 void AMilDalGameModeBase::Notify()
 {
-    UE_LOG(LogTemp, Log, TEXT("AMilDalGameModeBase Receive GameEnd"));
+    MD_LOG(Warning, TEXT("AMilDalGameModeBase Receive GameEnd"));
     ClearTimer();
 }

@@ -1,5 +1,8 @@
+#include "MilDal/MilDal.h"
 #include "MilDal/UI/TitleMenu.h"
+
 #include "Components/Button.h"
+
 #include "Kismet/GameplayStatics.h"
 #include "Kismet/KismetSystemLibrary.h"
 
@@ -31,7 +34,7 @@ void UTitleMenu::OnStart()
 
 void UTitleMenu::OnOption()
 {
-    UE_LOG(LogTemp, Log, TEXT("OptionClick"));
+    MD_LOG(Warning, TEXT("OptionClick"));
 }
 
 void UTitleMenu::OnQuit()

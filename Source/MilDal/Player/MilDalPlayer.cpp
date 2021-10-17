@@ -9,6 +9,7 @@
 #include "MilDal/Manager/MilDalGameInstance.h"
 #include "MilDal/Player/CharacterStatComponent.h"
 #include "MilDal/UI/MainWidget.h"
+#include "MilDal/MilDal.h"
 
 AMilDalPlayer::AMilDalPlayer()
 {
@@ -245,7 +246,7 @@ void AMilDalPlayer::RespawnPlayer()
     characterStatComponent->DecreaseLife();
     if (characterStatComponent->GetLife() == 0 && MilDalGameManager().GetIsGameEnd() == false)
     {
-        UE_LOG(LogTemp, Log, TEXT("%s GameOver"), *characterStatComponent->GetName());
+        MD_LOG(Warning, TEXT("%s GameOver"), *characterStatComponent->GetName());
         SetPlayerHide(true);
         MilDalGameManager().NotifyGameOver();
     }

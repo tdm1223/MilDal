@@ -1,4 +1,5 @@
 #include "MilDalGameInstance.h"
+#include "MilDal/MilDal.h"
 
 UMilDalGameInstance* UMilDalGameInstance::Instance = nullptr;
 
@@ -11,7 +12,7 @@ void UMilDalGameInstance::Init()
 {
     Super::Init();
 
-    UE_LOG(LogTemp, Log, TEXT("UMilDalGameInstance Init"));
+    MD_LOG(Warning, TEXT("UMilDalGameInstance Init"));
 
     UMilDalGameInstance::Instance = this;
 
@@ -22,7 +23,7 @@ void UMilDalGameInstance::GenerateManager()
 {
     if (!MilDalGameManager)
     {
-        UE_LOG(LogTemp, Log, TEXT("UMilDalGameManager Generate"));
+        MD_LOG(Warning, TEXT("UMilDalGameManager Generate"));
         MilDalGameManager = NewObject<UMilDalGameManager>(this, UMilDalGameManager::StaticClass());
     }
 }

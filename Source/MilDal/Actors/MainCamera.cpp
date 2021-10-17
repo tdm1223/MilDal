@@ -52,6 +52,5 @@ void AMainCamera::Tick(float DeltaTime)
 
 void AMainCamera::Notify()
 {
-    UE_LOG(LogTemp, Log, TEXT("Camera Receive GameEnd"));
     MoveSpeed = 0.0f;
 }

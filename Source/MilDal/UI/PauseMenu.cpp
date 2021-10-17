@@ -2,6 +2,7 @@
 #include "MilDal/Player/MilDalPlayerController.h"
 #include "MilDal/Manager/MilDalGameInstance.h"
 #include "MilDal/Manager/MilDalGameModeBase.h"
+#include "MilDal/MilDal.h"
 
 #include "Components/Button.h"
 
@@ -50,6 +51,6 @@ void UPauseMenu::OnTitle()
 
 void UPauseMenu::OnQuit()
 {
-    UE_LOG(LogTemp, Log, TEXT("ClickStart"));
+    MD_LOG(Warning, TEXT("ClickStart"));
     UKismetSystemLibrary::QuitGame(GetWorld(), nullptr, EQuitPreference::Quit, false);
 }
