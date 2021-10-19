@@ -23,12 +23,16 @@ public:
     UPROPERTY()
         class UPauseMenu* PauseWidget;
 
+    UPROPERTY()
+        class AMilDalGameModeBase* mode;
+    
 public:
     virtual void BeginPlay();
     virtual void SetupInputComponent() override;
     UMainWidget* GetMainWidget() const;
     void ChangeInputMode(bool bGameMode);
     void OnGamePause();
+    void OnGameRestart();
 
     FInputModeGameOnly GameInputMode;
     FInputModeUIOnly UIInputMode;

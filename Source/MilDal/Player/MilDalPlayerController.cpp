@@ -1,6 +1,12 @@
 #include "MilDalPlayerController.h"
+
 #include "MilDal/UI/MainWidget.h"
 #include "MilDal/UI/PauseMenu.h"
+
+#include "MilDal/Manager/MilDalGameModeBase.h"
+#include "MilDal/Manager/MilDalGameInstance.h"
+
+#include "Kismet/GameplayStatics.h"
 
 AMilDalPlayerController::AMilDalPlayerController()
 {
@@ -30,6 +36,7 @@ void AMilDalPlayerController::SetupInputComponent()
 {
     Super::SetupInputComponent();
     InputComponent->BindAction(TEXT("Pause"), EInputEvent::IE_Pressed, this, &AMilDalPlayerController::OnGamePause);
+    InputComponent->BindAction(TEXT("Restart"), EInputEvent::IE_Pressed, this, &AMilDalPlayerController::OnGameRestart);
 }
 
 UMainWidget* AMilDalPlayerController::GetMainWidget() const
@@ -57,4 +64,14 @@ void AMilDalPlayerController::OnGamePause()
     PauseWidget->AddToViewport(3);
     SetPause(true);
     ChangeInputMode(false);
+}
+
+void AMilDalPlayerController::OnGameRestart()
+{
+    mode = Cast<AMilDalGameModeBase>(UGameplayStatics::GetGameMode(GetWorld()));
+    mode->ClearTimer();
+
+    MilDalGameManager().SetPlayerOneIsReady(false);
+    MilDalGameManager().SetPlayerTwoIsReady(false);
+    UGameplayStatics::OpenLevel(this, TEXT("Main"), false, TEXT("?Game=/Script/MilDal.MilDalGameModeBase"));
 }
