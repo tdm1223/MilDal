@@ -2,11 +2,10 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/GameModeBase.h"
-#include "MilDal/Interfaces/Observer.h"
 #include "MilDalGameModeBase.generated.h"
 
 UCLASS()
-class MILDAL_API AMilDalGameModeBase : public AGameModeBase, public IObserver
+class MILDAL_API AMilDalGameModeBase : public AGameModeBase
 {
     GENERATED_BODY()
 
@@ -33,5 +32,6 @@ public:
     FTimerHandle SpawnHelicopterHandle;
     FTimerHandle SpawnItemHandle;
 
-    virtual void Notify() override;
+    UFUNCTION()
+        void Notify();
 };

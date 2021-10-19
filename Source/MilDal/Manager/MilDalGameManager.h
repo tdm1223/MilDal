@@ -15,6 +15,8 @@ enum PlayerType
     PlayerTwo,
 };
 
+DECLARE_MULTICAST_DELEGATE(FGameEndSignature);
+
 UCLASS()
 class MILDAL_API UMilDalGameManager : public UObject
 {
@@ -38,10 +40,10 @@ public:
     void RegistController();
     UMainWidget* GetMainwWidget() const;
 
-    UPROPERTY(EditAnywhere)
-        TArray<TScriptInterface<class IObserver>> ObserverSet;
+    UFUNCTION()
+        void NotifyGameOver();
 
-    void NotifyGameOver();
+    FGameEndSignature GameEndDelegate;
 
     UPROPERTY(EditAnywhere)
         AMainCamera* MainCamera;

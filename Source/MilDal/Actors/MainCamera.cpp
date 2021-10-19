@@ -5,6 +5,7 @@
 #include "Components/BoxComponent.h"
 #include "Camera/CameraComponent.h"
 #include "MilDal/Manager/MilDalGameInstance.h"
+#include "MilDal/MilDal.h"
 
 AMainCamera::AMainCamera()
 {
@@ -33,6 +34,9 @@ void AMainCamera::BeginPlay()
     CurrentLocation = this->GetActorLocation();
 
     MoveSpeed = 0;
+
+    // Delegate 등록
+    MilDalGameManager().GameEndDelegate.AddUObject(this, &AMainCamera::Notify);
 }
 
 void AMainCamera::Tick(float DeltaTime)
@@ -52,5 +56,6 @@ void AMainCamera::Tick(float DeltaTime)
 
 void AMainCamera::Notify()
 {
+    MD_LOG(Warning, TEXT("AMainCamera Receive GameEnd"));
     MoveSpeed = 0.0f;
 }

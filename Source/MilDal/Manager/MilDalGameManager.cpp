@@ -35,7 +35,6 @@ void UMilDalGameManager::SetMainCamera()
     {
         MainCamera = *It;
     }
-    ObserverSet.Add(MainCamera);
 }
 
 void UMilDalGameManager::SetReverse(bool bReverse, PlayerType InEatPlayer)
@@ -92,7 +91,6 @@ void UMilDalGameManager::RegistController()
     MainWidget = controller->GetMainWidget();
 
     mode = Cast<AMilDalGameModeBase>(UGameplayStatics::GetGameMode(GetWorld()));
-    ObserverSet.Add(mode);
 }
 
 UMainWidget* UMilDalGameManager::GetMainwWidget() const
@@ -103,12 +101,5 @@ UMainWidget* UMilDalGameManager::GetMainwWidget() const
 void UMilDalGameManager::NotifyGameOver()
 {
     bIsGameEnd = true;
-
-    for (auto Observer : ObserverSet)
-    {
-        if (Observer != nullptr)
-        {
-            Observer->Notify();
-        }
-    }
+    GameEndDelegate.Broadcast();
 }

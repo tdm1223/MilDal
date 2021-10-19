@@ -63,6 +63,7 @@ void AMilDalGameModeBase::BeginPlay()
     Super::BeginPlay();
     SpawnHelicopter();
     SpawnItem();
+    MilDalGameManager().GameEndDelegate.AddUObject(this, &AMilDalGameModeBase::Notify);
 }
 
 void AMilDalGameModeBase::SpawnItem()
