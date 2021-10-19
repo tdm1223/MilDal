@@ -31,11 +31,9 @@ FVector UMilDalGameManager::GetCameraInfo()
 
 void UMilDalGameManager::SetMainCamera()
 {
-    TArray<AActor*> actors;
-    UGameplayStatics::GetAllActorsOfClass(GetWorld(), FindClassType, actors);
-    for (auto actor : actors)
+    for (TObjectIterator<AMainCamera> It; It; ++It)
     {
-        MainCamera = Cast<AMainCamera>(actor);
+        MainCamera = *It;
     }
     ObserverSet.Add(MainCamera);
 }
