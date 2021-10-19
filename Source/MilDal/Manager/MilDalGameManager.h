@@ -93,8 +93,19 @@ public:
         bIsGameEnd = InIsEnd;
     }
 
+    bool GetIsGameStart()
+    {
+        return bIsGameStart;
+    }
+
+    void SetIsGameStart(bool InIsStart)
+    {
+        bIsGameStart = InIsStart;
+    }
+
 private:
     bool bPlayerOneIsReady;
     bool bPlayerTwoIsReady;
     bool bIsGameEnd;
+    bool bIsGameStart;
 };

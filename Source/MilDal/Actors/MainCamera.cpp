@@ -6,6 +6,7 @@
 #include "Camera/CameraComponent.h"
 #include "MilDal/Manager/MilDalGameInstance.h"
 #include "MilDal/MilDal.h"
+#include "Components/TextRenderComponent.h"
 
 AMainCamera::AMainCamera()
 {
@@ -20,7 +21,15 @@ AMainCamera::AMainCamera()
     BoxComponent->SetRelativeRotation(FRotator(40.0f, 0.0f, 0.0f));
     BoxComponent->SetBoxExtent(FVector(32.0f, 1280.0f, 640.0f));
 
+    CountdownText = CreateDefaultSubobject<UTextRenderComponent>(TEXT("Countdown Text"));
+    CountdownText->SetHorizontalAlignment(EHTA_Center);
+    CountdownText->SetWorldSize(100.0f);
+    CountdownText->SetWorldRotation(FRotator(0.0f, 180.0f, 0.0f));
+    CountdownText->SetText(TEXT("PRESS JUMP TO READY"));
+    CountdownText->SetTextRenderColor(FColor::Red);
+    CountdownTime = 3;
     Tags.Add("Camera");
+    bTimerStart = false;
 }
 
 void AMainCamera::BeginPlay()
@@ -34,6 +43,7 @@ void AMainCamera::BeginPlay()
     CurrentLocation = this->GetActorLocation();
 
     MoveSpeed = 0;
+    bTimerStart = false;
 
     // Delegate 등록
     MilDalGameManager().GameEndDelegate.AddUObject(this, &AMainCamera::Notify);
@@ -42,14 +52,29 @@ void AMainCamera::BeginPlay()
 void AMainCamera::Tick(float DeltaTime)
 {
     Super::Tick(DeltaTime);
-    CurrentLocation.X += MoveSpeed * DeltaTime;
-    SetActorLocation(CurrentLocation);
 
+    // 1P 2P 모두 Ready 라면
     if (MilDalGameManager().GetPlayerOneIsReady() && MilDalGameManager().GetPlayerTwoIsReady())
     {
-        if (!MilDalGameManager().GetIsGameEnd())
+        // 게임이 시작된게 아니라면 게임 스타트 플래그 실행
+        if (!MilDalGameManager().GetIsGameStart())
         {
-            MoveSpeed = 20.0f;
+            if (!bTimerStart)
+            {
+                bTimerStart = true;
+                MD_LOG(Warning, TEXT("Call Start"));
+                UpdateTimerDisplay();
+                GetWorldTimerManager().SetTimer(CountdownTimerHandle, this, &AMainCamera::AdvanceTimer, 1.0f, true);
+            }
+        }
+        else
+        {
+            if (!MilDalGameManager().GetIsGameEnd())
+            {
+                CurrentLocation.X += MoveSpeed * DeltaTime;
+                SetActorLocation(CurrentLocation);
+                MoveSpeed = 20.0f;
+            }
         }
     }
 }
@@ -58,4 +83,31 @@ void AMainCamera::Notify()
 {
     MD_LOG(Warning, TEXT("AMainCamera Receive GameEnd"));
     MoveSpeed = 0.0f;
+}
+
+void AMainCamera::UpdateTimerDisplay()
+{
+    CountdownText->SetText(FString::FromInt(FMath::Max(CountdownTime, 0)));
+}
+
+void AMainCamera::AdvanceTimer()
+{
+    --CountdownTime;
+    UpdateTimerDisplay();
+
+    if (CountdownTime < 1)
+    {
+        GetWorldTimerManager().ClearTimer(CountdownTimerHandle);
+        CountdownHasFinished();
+    }
+}
+
+void AMainCamera::CountdownHasFinished()
+{
+    CountdownText->SetText(TEXT("GO!"));
+    MilDalGameManager().SetIsGameStart(true);
+    GetWorld()->GetTimerManager().SetTimer(CountdownTimerHandle, FTimerDelegate::CreateLambda([&]()
+        {
+            CountdownText->SetVisibility(false);
+        }), 1.0f, false);
 }

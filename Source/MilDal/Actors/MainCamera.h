@@ -28,6 +28,21 @@ public:
     UFUNCTION()
         void Notify();
 
+    void UpdateTimerDisplay();
+
+    void AdvanceTimer();
+
+    void CountdownHasFinished();
+
+    UPROPERTY(VisibleAnywhere)
+        int CountdownTime;
+
+    UPROPERTY(VisibleAnywhere)
+        class UTextRenderComponent* CountdownText;
+
+    FTimerHandle CountdownTimerHandle;
+
+    bool bTimerStart;
 private:
     FVector CurrentLocation;
 };
