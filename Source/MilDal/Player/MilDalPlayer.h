@@ -84,6 +84,9 @@ public:
         bool bPlayerOneReady;
 
     UPROPERTY(EditAnywhere, BlueprintReadOnly)
+        bool bPlayerMovable;
+
+    UPROPERTY(EditAnywhere, BlueprintReadOnly)
         class UCapsuleComponent* PushCollision;
 private:
     float RespawnDelay = 2.0f;

@@ -264,8 +264,10 @@ void AMilDalPlayer::IncreaseLife()
 bool AMilDalPlayer::CheckMovable()
 {
     if (MilDalGameManager().GetPlayerOneIsReady()
-        && MilDalGameManager().GetPlayerTwoIsReady())
+        && MilDalGameManager().GetPlayerTwoIsReady()
+        && MilDalGameManager().GetIsGameStart())
     {
+        bPlayerMovable = true;
         return true;
     }
     return false;
