@@ -1,6 +1,6 @@
 {
 	"FileVersion": 3,
-	"EngineAssociation": "4.27",
+	"EngineAssociation": "{C12DB76E-4A99-7819-90B5-4680FCAC2647}",
 	"Category": "",
 	"Description": "",
 	"Modules": [
@@ -13,6 +13,12 @@
 				"CoreUObject",
 				"UMG"
 			]
+		}
+	],
+	"Plugins": [
+		{
+			"Name": "WakaTimeForUE4",
+			"Enabled": true
 		}
 	]
 }
