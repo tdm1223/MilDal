@@ -5,8 +5,8 @@
 
 UCharacterStatComponent::UCharacterStatComponent()
 {
-    PrimaryComponentTick.bCanEverTick = false;
-    Life = 5;
+    PrimaryComponentTick.bCanEverTick = true;
+    Life = 3;
     Speed = 200.0f;
 }
 
@@ -27,6 +27,7 @@ void UCharacterStatComponent::BeginPlay()
 void UCharacterStatComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
     Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
+    SetLifePanel();
 }
 
 void UCharacterStatComponent::IncreaseLife()
@@ -34,7 +35,6 @@ void UCharacterStatComponent::IncreaseLife()
     if (Life < 5)
     {
         Life++;
-        SetLifePanel();
     }
 }
 
@@ -43,7 +43,6 @@ void UCharacterStatComponent::DecreaseLife()
     if (Life > 0)
     {
         Life--;
-        SetLifePanel();
     }
 }
 
