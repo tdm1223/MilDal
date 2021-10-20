@@ -38,7 +38,7 @@ public:
         int CountdownTime;
 
     UPROPERTY(VisibleAnywhere)
-        class UTextRenderComponent* CountdownText;
+        class UTextRenderComponent* CameraText;
 
     FTimerHandle CountdownTimerHandle;
 

@@ -21,12 +21,12 @@ AMainCamera::AMainCamera()
     BoxComponent->SetRelativeRotation(FRotator(40.0f, 0.0f, 0.0f));
     BoxComponent->SetBoxExtent(FVector(32.0f, 1280.0f, 640.0f));
 
-    CountdownText = CreateDefaultSubobject<UTextRenderComponent>(TEXT("Countdown Text"));
-    CountdownText->SetHorizontalAlignment(EHTA_Center);
-    CountdownText->SetWorldSize(100.0f);
-    CountdownText->SetWorldRotation(FRotator(0.0f, 180.0f, 0.0f));
-    CountdownText->SetText(TEXT("PRESS JUMP TO READY"));
-    CountdownText->SetTextRenderColor(FColor::Red);
+    CameraText = CreateDefaultSubobject<UTextRenderComponent>(TEXT("Countdown Text"));
+    CameraText->SetHorizontalAlignment(EHTA_Center);
+    CameraText->SetWorldSize(100.0f);
+    CameraText->SetWorldRotation(FRotator(0.0f, 180.0f, 0.0f));
+    CameraText->SetText(TEXT("PRESS JUMP TO READY"));
+    CameraText->SetTextRenderColor(FColor::Red);
     CountdownTime = 3;
     Tags.Add("Camera");
     bTimerStart = false;
@@ -82,12 +82,15 @@ void AMainCamera::Tick(float DeltaTime)
 void AMainCamera::Notify()
 {
     MD_LOG(Warning, TEXT("AMainCamera Receive GameEnd"));
+    CameraText->SetText(TEXT("Game End!"));
+    CameraText->MoveComponent(FVector(0.0f, 0.0f, 200.0f), FRotator(0.0f, 180.0f, 0.0f), false);
+    CameraText->SetVisibility(true);
     MoveSpeed = 0.0f;
 }
 
 void AMainCamera::UpdateTimerDisplay()
 {
-    CountdownText->SetText(FString::FromInt(FMath::Max(CountdownTime, 0)));
+    CameraText->SetText(FString::FromInt(FMath::Max(CountdownTime, 0)));
 }
 
 void AMainCamera::AdvanceTimer()
@@ -104,10 +107,10 @@ void AMainCamera::AdvanceTimer()
 
 void AMainCamera::CountdownHasFinished()
 {
-    CountdownText->SetText(TEXT("GO!"));
+    CameraText->SetText(TEXT("GO!"));
     MilDalGameManager().SetIsGameStart(true);
     GetWorld()->GetTimerManager().SetTimer(CountdownTimerHandle, FTimerDelegate::CreateLambda([&]()
         {
-            CountdownText->SetVisibility(false);
+            CameraText->SetVisibility(false);
         }), 1.0f, false);
 }
